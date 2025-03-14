@@ -55,7 +55,7 @@ function deriveWinner(gameBoard, players){
 }
 
 function App() {
-    const [players, setPlayers] = useState(PLAYER);
+    const [players, setPlayers] = useState({PLAYER});
     const [gameTurns, setGameTurns] = useState([]);
 
     const activePlayer = deriveActivePlayer(gameTurns);

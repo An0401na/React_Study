@@ -1,10 +1,10 @@
-import UserInput from "./components/UserInput.jsx";
+
 import Result from "./components/Result.jsx";
 import Input from "./components/Input.jsx";
 import {useState} from "react";
 
 const INPUT ={
-    initialInvestment : 100000,
+    initialInvestment : 10000,
     annualInvestment : 1200,
     expectedReturn : 6,
     duration : 10
@@ -15,7 +15,7 @@ function App() {
         setInputs(prevInputs => {
             return{
                 ...prevInputs,
-                [input] : newValue
+                [input] : +newValue
             };
         })
     }
@@ -32,8 +32,8 @@ function App() {
                   <Input label="DURATION" input="duration" initialValue={INPUT.duration} onChangeValue={handleInputValueChange}/>
               </div>
           </div>
-          {inputs.initialInvestment + inputs.annualInvestment}
-        <Result />
+          {/*{inputs.initialInvestment + inputs.annualInvestment}*/}
+          <Result input={inputs}/>
       </main>
     )
 }

@@ -1,30 +1,17 @@
-export default function Input(){
-    return (
+import { useState } from "react";
 
-        <div id="user-input">
-            <div className="input-group">
-                <p>
-                    <div>
-                        <label >이름</label>
-                        <input type="number"  />
-                    </div>
-                </p>
-                <p>
-                    <label >이름</label>
-                    <input type="number"  />
-                </p>
-            </div>
-            <div className="input-group">
-                <p>
-                    <label >이름</label>
-                    <input type="number"  />
-                </p>
-                <p>
-                    <label >이름</label>
-                    <input type="number"  />
-                </p>
-            </div>
-        </div>
+export default function Input({ label, input, initialValue, onChangeValue}) {
+    const [value, setValue] = useState(initialValue);
 
-    );
+    function handleChange(event){
+        setValue(event.target.value);
+        onChangeValue(input, event.target.value);
+    }
+
+    console.log(value);
+
+    return <p>
+            <label>{label}</label>
+            <input type="number" required value={value} onChange={handleChange}/>
+    </p>;
 }

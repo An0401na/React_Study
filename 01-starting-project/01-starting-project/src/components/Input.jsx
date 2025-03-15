@@ -8,7 +8,6 @@ export default function Input({ label, input, initialValue, onChangeValue}) {
         onChangeValue(input, event.target.value);
     }
 
-    console.log(value);
 
     return <p>
             <label>{label}</label>

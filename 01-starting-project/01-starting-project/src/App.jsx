@@ -10,7 +10,7 @@ const INPUT ={
     duration : 10
 }
 function App() {
-    const [inputs, setInputs] = useState({INPUT});
+    const [inputs, setInputs] = useState(INPUT);
     function handleInputValueChange(input, newValue){
         setInputs(prevInputs => {
             return{

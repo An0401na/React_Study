@@ -33,13 +33,13 @@ function App() {
                     <Input
                         label="INITIAL INVESTMENT"
                         inputIdentifier="initialInvestment"
-                        initialValue={inputs.initialInvestment}
+                        value={inputs.initialInvestment}
                         onChangeValue={handleInputValueChange}
                     />
                     <Input
                         label="ANNUAL INVESTMENT"
                         inputIdentifier="annualInvestment"
-                        initialValue={inputs.annualInvestment}
+                        value={inputs.annualInvestment}
                         onChangeValue={handleInputValueChange}
                     />
                 </div>
@@ -47,13 +47,13 @@ function App() {
                     <Input
                         label="EXPECTED RETURN"
                         inputIdentifier="expectedReturn"
-                        initialValue={inputs.expectedReturn}
+                        value={inputs.expectedReturn}
                         onChangeValue={handleInputValueChange}
                     />
                     <Input
                         label="DURATION"
                         inputIdentifier="duration"
-                        initialValue={inputs.duration}
+                        value={inputs.duration}
                         onChangeValue={handleInputValueChange}
                     />
                 </div>

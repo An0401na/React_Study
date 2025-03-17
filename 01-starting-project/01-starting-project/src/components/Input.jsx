@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function Input({ label, inputIdentifier, initialValue, onChangeValue}) {
+export default function Input({ label, inputIdentifier, value, onChangeValue}) {
 
     // input 값 변경 시 호출되는 함수
     function handleChange(event) {
@@ -14,7 +14,7 @@ export default function Input({ label, inputIdentifier, initialValue, onChangeVa
             <input
                 type="number" // 숫자만 입력받기 위해 type="number" 사용
                 required
-                value={initialValue} // input에 현재 값 설정
+                value={value} // input에 현재 값 설정
                 onChange={handleChange} // 값 변경 시 handleChange 호출
             />
         </p>

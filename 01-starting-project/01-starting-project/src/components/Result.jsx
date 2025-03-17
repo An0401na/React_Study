@@ -34,13 +34,20 @@ export default function Result({input}){
                     investedCapital += input.annualInvestment;
 
                     return (
+                        /*
+                          투자 결과 테이블의 각 행을 생성하는 부분
+                          - 년도
+                          - 년말 투자 금액
+                          - 해당 년도의 이자
+                          - 누적된 총 이자
+                          - 누적된 투자 자본
+                        */
                         <tr key={result.year}>
-                            {/* 각 년도별 데이터 표시 */}
-                            <td>{result.year}</td> {/* 년도 */}
-                            <td>{formatter.format(result.valueEndOfYear)}</td> {/* 년말 투자 금액 */}
-                            <td>{formatter.format(result.interest)}</td> {/* 해당 년도의 이자 */}
-                            <td>{formatter.format(totalInterest)}</td> {/* 누적된 총 이자 */}
-                            <td>{formatter.format(investedCapital)}</td> {/* 누적된 투자 자본 */}
+                            <td>{result.year}</td>
+                            <td>{formatter.format(result.valueEndOfYear)}</td>
+                            <td>{formatter.format(result.interest)}</td>
+                            <td>{formatter.format(totalInterest)}</td>
+                            <td>{formatter.format(investedCapital)}</td>
                         </tr>
                     );
                 })}

@@ -14,6 +14,7 @@ const INPUT = {
 function App() {
     const [inputs, setInputs] = useState(INPUT); // 상태 초기화: INPUT 객체
 
+    const inputIsValid = inputs.duration >= 1;
 
     // 사용자가 입력값을 변경할 때마다 호출되는 함수
     function handleInputValueChange(inputIdentifier, newValue) {
@@ -58,9 +59,9 @@ function App() {
                     />
                 </div>
             </div>
-            {inputs.initialInvestment}
             {/* 입력된 값들을 Result 컴포넌트에 전달 */}
-            <Result input={inputs} />
+            {!inputIsValid && <p className="center">Please enter a duration greater than zero.</p>}
+            {inputIsValid && <Result input={inputs}/>}
         </main>
     );
 }

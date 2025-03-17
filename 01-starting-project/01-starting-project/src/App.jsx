@@ -16,12 +16,12 @@ function App() {
 
 
     // 사용자가 입력값을 변경할 때마다 호출되는 함수
-    function handleInputValueChange(input, newValue) {
+    function handleInputValueChange(inputIdentifier, newValue) {
         setInputs(prevInputs => {
             return {
                 // 기존 값은 그대로 유지하고, 변경된 input 값만 업데이트
                 ...prevInputs,
-                [input]: +newValue // `+` 연산자를 이용해 문자열을 숫자로 변환
+                [inputIdentifier]: +newValue // `+` 연산자를 이용해 문자열을 숫자로 변환
             };
         });
     }
@@ -32,13 +32,13 @@ function App() {
                     {/* 각 Input 컴포넌트에 값과 변경된 값을 처리할 함수 전달 */}
                     <Input
                         label="INITIAL INVESTMENT"
-                        input="initialInvestment"
+                        inputIdentifier="initialInvestment"
                         initialValue={INPUT.initialInvestment}
                         onChangeValue={handleInputValueChange}
                     />
                     <Input
                         label="ANNUAL INVESTMENT"
-                        input="annualInvestment"
+                        inputIdentifier="annualInvestment"
                         initialValue={INPUT.annualInvestment}
                         onChangeValue={handleInputValueChange}
                     />
@@ -46,18 +46,19 @@ function App() {
                 <div className="input-group">
                     <Input
                         label="EXPECTED RETURN"
-                        input="expectedReturn"
+                        inputIdentifier="expectedReturn"
                         initialValue={INPUT.expectedReturn}
                         onChangeValue={handleInputValueChange}
                     />
                     <Input
                         label="DURATION"
-                        input="duration"
+                        inputIdentifier="duration"
                         initialValue={INPUT.duration}
                         onChangeValue={handleInputValueChange}
                     />
                 </div>
             </div>
+            {inputs.initialInvestment}
             {/* 입력된 값들을 Result 컴포넌트에 전달 */}
             <Result input={inputs} />
         </main>

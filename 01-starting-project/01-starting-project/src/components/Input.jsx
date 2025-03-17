@@ -1,12 +1,12 @@
 import { useState } from "react";
 
-export default function Input({ label, input, initialValue, onChangeValue}) {
+export default function Input({ label, inputIdentifier, initialValue, onChangeValue}) {
     const [value, setValue] = useState(initialValue); // input의 상태 값 관리
 
     // input 값 변경 시 호출되는 함수
     function handleChange(event) {
         setValue(event.target.value); // input의 값 상태 업데이트
-        onChangeValue(input, event.target.value); // 부모 컴포넌트(App)로 변경된 값 전달
+        onChangeValue(inputIdentifier, event.target.value); // 부모 컴포넌트(App)로 변경된 값 전달
     }
 
     return (

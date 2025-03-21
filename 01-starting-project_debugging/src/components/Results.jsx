@@ -4,6 +4,10 @@ import { calculateInvestmentResults, formatter } from '../util/investment.js';
 export default function Results({ input }) {
   const results = [];
   calculateInvestmentResults(input, results);
+
+    if(results.length === 0){
+        return <p className="center">값이 유효하지 않습니다.</p>
+    }
   const initialInvestment =
     results[0].valueEndOfYear -
     results[0].interest -

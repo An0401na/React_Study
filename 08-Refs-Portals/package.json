@@ -5,8 +5,10 @@
   "type": "module",
   "homepage": "https://an0401na.github.io/React_Study/08-Refs-Portals/",
   "scripts": {
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "react": "^19.0.0",

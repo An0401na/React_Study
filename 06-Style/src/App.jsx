@@ -6,7 +6,7 @@ export default function App() {
     <>
       <Header />
       <main>
-        <AuthInputs />
+        <AuthInputs ></AuthInputs>
       </main>
     </>
   );

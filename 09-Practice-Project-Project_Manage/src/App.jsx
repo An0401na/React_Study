@@ -8,13 +8,29 @@ const PROJECT = [{ name: "Learn React" }, { name: "Learn React2" }];
 
 function App() {
   const [selectedProeject, setSelectedProeject] = useState();
+  const [isCreatingProject, setIsCreatingProject] = useState(false);
 
   if (selectedProeject) {
     console.log("selectedProeject : " + selectedProeject.name);
   }
+  console.log("isCreatingProject : " + isCreatingProject);
+
+  let showComponent = <NoProjectSelected />;
+  if (selectedProeject) {
+    showComponent = <ProjectDetail />;
+  }
+  if (isCreatingProject) {
+    showComponent = <CreateProject />;
+  }
 
   function handleSelectedProjectClick(newSelectedProject) {
+    setIsCreatingProject(false);
     setSelectedProeject(newSelectedProject);
+  }
+
+  function handleCreatingProjectClick() {
+    setIsCreatingProject(true);
+    setSelectedProeject();
   }
 
   return (
@@ -22,8 +38,9 @@ function App() {
       <SideBar
         projects={PROJECT}
         onClickSelectedProject={handleSelectedProjectClick}
+        onClickCreatingProject={handleCreatingProjectClick}
       />
-      {!selectedProeject ? <NoProjectSelected /> : <ProjectDetail />}
+      {showComponent}
     </main>
   );
 }

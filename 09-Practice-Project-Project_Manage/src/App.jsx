@@ -15,14 +15,6 @@ function App() {
   }
   console.log("isCreatingProject : " + isCreatingProject);
 
-  let showComponent = <NoProjectSelected />;
-  if (selectedProeject) {
-    showComponent = <ProjectDetail />;
-  }
-  if (isCreatingProject) {
-    showComponent = <CreateProject />;
-  }
-
   function handleSelectedProjectClick(newSelectedProject) {
     setIsCreatingProject(false);
     setSelectedProeject(newSelectedProject);
@@ -31,6 +23,16 @@ function App() {
   function handleCreatingProjectClick() {
     setIsCreatingProject(true);
     setSelectedProeject();
+  }
+
+  let showComponent = (
+    <NoProjectSelected onClickCreatingProject={handleCreatingProjectClick} />
+  );
+  if (selectedProeject) {
+    showComponent = <ProjectDetail />;
+  }
+  if (isCreatingProject) {
+    showComponent = <CreateProject />;
   }
 
   return (

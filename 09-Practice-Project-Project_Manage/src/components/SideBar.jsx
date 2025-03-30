@@ -16,11 +16,11 @@ function SideBar({ projects, onClickSelectedProject, onClickCreatingProject }) {
         {projects.map((project) => {
           return (
             <button
-              key={project.name}
+              key={project.title}
               className="w-full text-left px-2 py-1 rounded-sm my-1 hover:text-stone-200 hover:bg-stone-800"
               onClick={() => onClickSelectedProject(project)}
             >
-              {project.name}
+              {project.title}
             </button>
           );
         })}

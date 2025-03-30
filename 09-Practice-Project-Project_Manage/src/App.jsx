@@ -4,35 +4,10 @@ import { useState } from "react";
 import CreateProject from "./components/CreateProject.jsx";
 import ProjectDetail from "./components/ProjectDetail.jsx";
 
-//Todo : 삭제
-const PROJECTS = [
-  {
-    title: "Learn React",
-    description:
-      "Learn React from the group up.\n\n" +
-      "Start with the basics, finish wih advanced knowledge.",
-    dueDate: "",
-    tasks: [],
-  },
-  {
-    title: "Learn React2",
-    description: "dfsdfse",
-    dueDate: "",
-    tasks: ["Learn the basics", "Learn the basics"],
-  },
-];
-
 function App() {
-  const [projects, setProjects] = useState(PROJECTS);
-  const [selectedProject, setSelectedProject] = useState();
+  const [projects, setProjects] = useState([]);
+  const [selectedProject, setSelectedProject] = useState(null);
   const [isCreatingProject, setIsCreatingProject] = useState(false);
-
-  //Todo : 로그 삭제
-  console.log(projects);
-  if (selectedProject) {
-    console.log("selectedProject : " + selectedProject.title);
-  }
-  console.log("isCreatingProject : " + isCreatingProject);
 
   function handleSelectedProjectClick(newSelectedProject) {
     setIsCreatingProject(false);

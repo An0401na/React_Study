@@ -12,8 +12,14 @@ const PROJECTS = [
       "Learn React from the group up.\n\n" +
       "Start with the basics, finish wih advanced knowledge.",
     dueDate: "",
+    tasks: [],
   },
-  { title: "Learn React2", description: "dfsdfse", dueDate: "" },
+  {
+    title: "Learn React2",
+    description: "dfsdfse",
+    dueDate: "",
+    tasks: ["Learn the basics", "Learn the basics"],
+  },
 ];
 
 function App() {
@@ -49,6 +55,7 @@ function App() {
         title: projectTitle,
         description: projectDescription,
         dueDate: projectDueDate,
+        tasks: [],
       },
     ]);
 
@@ -61,6 +68,22 @@ function App() {
     );
     setSelectedProject(); // Todo: onReset 으로 빼기
   }
+  function handleAddTaskToProject(currentProject, newTask) {
+    setSelectedProject((prevState) => {
+      const updatedProject = {
+        ...prevState,
+        tasks: [...currentProject.tasks, newTask],
+      };
+
+      // projects 배열에서도 해당 프로젝트를 업데이트
+      setProjects((prevProjects) =>
+        prevProjects.map((project) =>
+          project.title === updatedProject.title ? updatedProject : project,
+        ),
+      );
+      return updatedProject;
+    });
+  }
 
   let showComponent = (
     <NoProjectSelected onClickCreatingProject={handleCreatingProjectClick} />
@@ -70,6 +93,7 @@ function App() {
       <ProjectDetail
         project={selectedProject}
         onClickDeleteProject={handleDeleteProjectClick}
+        onClickAddTask={handleAddTaskToProject}
       />
     );
   }

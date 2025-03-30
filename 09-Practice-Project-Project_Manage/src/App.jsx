@@ -73,10 +73,12 @@ function App() {
     updateProjectInList(updatedProject); // 프로젝트 목록 업데이트
   }
 
-  let showComponent = (
-    <NoProjectSelected onClickCreatingProject={handleCreatingProjectClick} />
-  );
-  if (selectedProject) {
+  let showComponent;
+  if (isCreatingProject) {
+    showComponent = (
+      <CreateProject onClickSaveProject={handleSaveProjectClick} />
+    );
+  } else if (selectedProject) {
     showComponent = (
       <ProjectDetail
         project={selectedProject}
@@ -85,10 +87,9 @@ function App() {
         onClickClearTask={handleClearTaskToProject}
       />
     );
-  }
-  if (isCreatingProject) {
+  } else {
     showComponent = (
-      <CreateProject onClickSaveProject={handleSaveProjectClick} />
+      <NoProjectSelected onClickCreatingProject={handleCreatingProjectClick} />
     );
   }
 

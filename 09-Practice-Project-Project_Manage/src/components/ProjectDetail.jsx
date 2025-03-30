@@ -7,8 +7,6 @@ function ProjectDetail({
   onClickAddTask,
   onClickClearTask,
 }) {
-  const task = useRef();
-
   const formattedDate = new Date(project.dueDate).toLocaleDateString("en-US", {
     year: "numeric",
     month: "short",
@@ -20,9 +18,11 @@ function ProjectDetail({
       onClickAddTask(project, newTask);
     }
   }
+
   function handleClearTaskClick(index) {
     onClickClearTask(project, index);
   }
+
   return (
     <div className="w-[35rem] mt-16">
       <header className="pb-4 mb-4 border-b-2 border-stone-300">

@@ -9,12 +9,12 @@ function App() {
   const [selectedProject, setSelectedProject] = useState(null);
   const [isCreatingProject, setIsCreatingProject] = useState(false);
 
-  function startCreatingProject(newSelectedProject) {
+  function selectProject(newSelectedProject) {
     setIsCreatingProject(false);
     setSelectedProject(newSelectedProject);
   }
 
-  function handleCreatingProjectClick() {
+  function startCreatingProject() {
     setIsCreatingProject(true);
     setSelectedProject(null);
   }
@@ -33,11 +33,11 @@ function App() {
     setIsCreatingProject(false); // 프로젝트 저장 후 다시 생성 모드 종료
   }
 
-  function handleDeleteProjectClick(projectToDelete) {
+  function deleteProject(projectToDelete) {
     setProjects((prevProjects) =>
       prevProjects.filter((project) => project !== projectToDelete),
     );
-    setSelectedProject(); // Todo: onReset 으로 빼기
+    setSelectedProject();
   }
 
   // 프로젝트 목록에서 특정 프로젝트를 업데이트하는 함수
@@ -49,7 +49,7 @@ function App() {
     );
   }
 
-  function handleAddTaskToProject(currentProject, newTask) {
+  function clearTaskFromProject(currentProject, newTask) {
     const updatedProject = {
       ...currentProject,
       tasks: [...currentProject.tasks, newTask],
@@ -69,21 +69,21 @@ function App() {
     updateProjectInList(updatedProject); // 프로젝트 목록 업데이트
   }
 
-  let showComponent;
+  let currentView;
   if (isCreatingProject) {
-    showComponent = <CreateProject onClickSaveProject={saveProject} />;
+    currentView = <CreateProject onClickSaveProject={saveProject} />;
   } else if (selectedProject) {
-    showComponent = (
+    currentView = (
       <ProjectDetail
         project={selectedProject}
-        onClickDeleteProject={handleDeleteProjectClick}
-        onClickAddTask={handleAddTaskToProject}
+        onClickDeleteProject={deleteProject}
+        onClickAddTask={clearTaskFromProject}
         onClickClearTask={handleClearTaskToProject}
       />
     );
   } else {
-    showComponent = (
-      <NoProjectSelected onClickCreatingProject={handleCreatingProjectClick} />
+    currentView = (
+      <NoProjectSelected onClickCreatingProject={startCreatingProject} />
     );
   }
 
@@ -91,10 +91,10 @@ function App() {
     <main className="h-screen my-8 flex gap-8">
       <SideBar
         projects={projects}
-        onClickSelectedProject={startCreatingProject}
-        onClickCreatingProject={handleCreatingProjectClick}
+        onClickSelectedProject={selectProject}
+        onClickCreatingProject={startCreatingProject}
       />
-      {showComponent}
+      {currentView}
     </main>
   );
 }

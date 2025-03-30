@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
-import ProjectTask from "./ProjectTask.jsx";
+import ProjectTask from "./ProjectTask.jsx"; // ProjectTask 컴포넌트 임포트
 
+// ProjectDetail 컴포넌트 - 프로젝트의 세부 사항을 표시
 function ProjectDetail({
   project,
   onClickDeleteProject,

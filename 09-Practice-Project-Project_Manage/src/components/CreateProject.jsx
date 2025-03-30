@@ -1,17 +1,31 @@
-import React, { useRef } from "react";
+import { useState } from "react";
 
 function CreateProject({ onClickSaveProject }) {
-  const projectTitle = useRef();
-  const projectDescription = useRef();
-  const projectDueDate = useRef();
+  // 프로젝트 제목, 설명, 마감일을 상태로 관리
+  const [projectTitle, setProjectTitle] = useState("");
+  const [projectDescription, setProjectDescription] = useState("");
+  const [projectDueDate, setProjectDueDate] = useState("");
 
-  function handleSaveClick() {
-    onClickSaveProject(
-      projectTitle.current.value,
-      projectDescription.current.value,
-      projectDueDate.current.value,
-    );
+  // 프로젝트 제목 변경 시 호출되는 함수
+  function handleTitleChange(event) {
+    setProjectTitle(event.target.value);
   }
+
+  // 프로젝트 설명 변경 시 호출되는 함수
+  function handleDescriptionChange(event) {
+    setProjectDescription(event.target.value);
+  }
+
+  // 프로젝트 마감일 변경 시 호출되는 함수
+  function handleDueDateChange(event) {
+    setProjectDueDate(event.target.value);
+  }
+
+  // 'Save' 버튼 클릭 시 호출되는 함수
+  function handleSaveClick() {
+    onClickSaveProject(projectTitle, projectDescription, projectDueDate);
+  }
+
   return (
     <div className="w-[35rem] mt-16">
       <form className="mt-4 text-right">
@@ -21,8 +35,8 @@ function CreateProject({ onClickSaveProject }) {
           </button>
           <button
             className="px-6 py-2 rounded-md bg-stone-800 text-stone-50 hover:bg-stone-950"
-            onClick={handleSaveClick}
-            type="button"
+            onClick={handleSaveClick} // 'Save' 버튼 클릭 시 handleSaveClick 호출
+            type="button" // form을 제출하지 않도록 type="button" 설정
           >
             Save
           </button>
@@ -34,8 +48,8 @@ function CreateProject({ onClickSaveProject }) {
           TITLE
         </label>
         <input
-          ref={projectTitle}
-          type="text"
+          value={projectTitle} // 상태로 관리되는 프로젝트 제목
+          onChange={handleTitleChange} // 입력 값 변경 시 상태 업데이트
           className="w-full p-1 border-b-2 rounded-sm border-stone-300 bg-stone-200 text-stone-600 focus:outline-none focus:border-stone-600"
         />
       </p>
@@ -44,7 +58,8 @@ function CreateProject({ onClickSaveProject }) {
           DESCRIPTION
         </label>
         <textarea
-          ref={projectDescription}
+          value={projectDescription} // 상태로 관리되는 프로젝트 설명
+          onChange={handleDescriptionChange} // 입력 값 변경 시 상태 업데이트
           className="w-full p-1 border-b-2 rounded-sm border-stone-300 bg-stone-200 text-stone-600 focus:outline-none focus:border-stone-600"
         />
       </p>
@@ -53,7 +68,8 @@ function CreateProject({ onClickSaveProject }) {
           DUE DATE
         </label>
         <input
-          ref={projectDueDate}
+          value={projectDueDate} // 상태로 관리되는 프로젝트 마감일
+          onChange={handleDueDateChange} // 입력 값 변경 시 상태 업데이트
           type="date"
           className="w-full p-1 border-b-2 rounded-sm border-stone-300 bg-stone-200 text-stone-600 focus:outline-none focus:border-stone-600"
         />

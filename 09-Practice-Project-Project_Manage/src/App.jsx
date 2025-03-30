@@ -1,6 +1,5 @@
 import SideBar from "./components/SideBar.jsx";
 import NoProjectSelected from "./components/NoProjectSelected.jsx";
-import { useState } from "react";
 import CreateProject from "./components/CreateProject.jsx";
 import ProjectDetail from "./components/ProjectDetail.jsx";
 import { useProjects } from "./hooks/useProjects.js";

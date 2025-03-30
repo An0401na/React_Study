@@ -68,6 +68,7 @@ function App() {
     );
     setSelectedProject(); // Todo: onReset 으로 빼기
   }
+
   function handleAddTaskToProject(currentProject, newTask) {
     setSelectedProject((prevState) => {
       const updatedProject = {
@@ -85,6 +86,24 @@ function App() {
     });
   }
 
+  function handleClearTaskToProject(currentProject, index) {
+    setSelectedProject((prevState) => {
+      const updatedTasks = prevState.tasks.filter((_, i) => i !== index); // 인덱스를 기준으로 task 삭제
+      const updatedProject = { ...prevState, tasks: updatedTasks }; // 삭제 후 업데이트된 프로젝트 객체
+
+      // projects 배열에서 해당 프로젝트를 업데이트
+      setProjects((prevProjects) =>
+        prevProjects.map((project) =>
+          project.title === updatedProject.title ? updatedProject : project,
+        ),
+      );
+
+      return updatedProject;
+    });
+  }
+
+  function handleDeleteProject
+
   let showComponent = (
     <NoProjectSelected onClickCreatingProject={handleCreatingProjectClick} />
   );
@@ -94,6 +113,7 @@ function App() {
         project={selectedProject}
         onClickDeleteProject={handleDeleteProjectClick}
         onClickAddTask={handleAddTaskToProject}
+        onClickClearTask={handleClearTaskToProject}
       />
     );
   }

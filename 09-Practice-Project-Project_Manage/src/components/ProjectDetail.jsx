@@ -1,7 +1,12 @@
 import React, { useRef, useState } from "react";
 import ProjectTask from "./ProjectTask.jsx";
 
-function ProjectDetail({ project, onClickDeleteProject, onClickAddTask }) {
+function ProjectDetail({
+  project,
+  onClickDeleteProject,
+  onClickAddTask,
+  onClickClearTask,
+}) {
   const task = useRef();
 
   const formattedDate = new Date(project.dueDate).toLocaleDateString("en-US", {
@@ -17,7 +22,10 @@ function ProjectDetail({ project, onClickDeleteProject, onClickAddTask }) {
       task.current.value = ""; // 입력 필드를 초기화
     }
   }
-
+  function handleClearTaskClick(index) {
+    console.log(index);
+    onClickClearTask(project, index);
+  }
   return (
     <div className="w-[35rem] mt-16">
       <header className="pb-4 mb-4 border-b-2 border-stone-300">
@@ -41,6 +49,7 @@ function ProjectDetail({ project, onClickDeleteProject, onClickAddTask }) {
         ref={task}
         tasks={project.tasks}
         onClickAddTask={handleAddTaskClick}
+        onClickClear={handleClearTaskClick}
       />
     </div>
   );

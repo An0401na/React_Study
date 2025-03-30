@@ -23,7 +23,6 @@ function ProjectDetail({
     }
   }
   function handleClearTaskClick(index) {
-    console.log(index);
     onClickClearTask(project, index);
   }
   return (

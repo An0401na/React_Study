@@ -21,6 +21,7 @@ function ProjectTask({ ref, tasks, onClickAddTask, onClickClear }) {
             .slice()
             .reverse()
             .map((task, index) => {
+              console.log(index + ", " + task);
               return (
                 <li key={index} className="flex justify-between my-4">
                   {task}

@@ -3,85 +3,39 @@ import NoProjectSelected from "./components/NoProjectSelected.jsx";
 import { useState } from "react";
 import CreateProject from "./components/CreateProject.jsx";
 import ProjectDetail from "./components/ProjectDetail.jsx";
+import { useProjects } from "./hooks/useProjects.js";
 
 function App() {
-  const [projects, setProjects] = useState([]);
-  const [selectedProject, setSelectedProject] = useState(null);
-  const [isCreatingProject, setIsCreatingProject] = useState(false);
+  // 커스텀 훅에서 상태와 함수를 가져옵니다.
+  const {
+    projects,
+    selectedProject,
+    isCreatingProject,
+    selectProject,
+    startCreatingProject,
+    saveProject,
+    deleteProject,
+    clearTaskFromProject,
+    handleClearTaskToProject,
+  } = useProjects();
 
-  function selectProject(newSelectedProject) {
-    setIsCreatingProject(false);
-    setSelectedProject(newSelectedProject);
-  }
-
-  function startCreatingProject() {
-    setIsCreatingProject(true);
-    setSelectedProject(null);
-  }
-
-  function saveProject(projectTitle, projectDescription, projectDueDate) {
-    setProjects((prevProjects) => [
-      ...prevProjects,
-      {
-        title: projectTitle,
-        description: projectDescription,
-        dueDate: projectDueDate,
-        tasks: [],
-      },
-    ]);
-
-    setIsCreatingProject(false); // 프로젝트 저장 후 다시 생성 모드 종료
-  }
-
-  function deleteProject(projectToDelete) {
-    setProjects((prevProjects) =>
-      prevProjects.filter((project) => project !== projectToDelete),
-    );
-    setSelectedProject();
-  }
-
-  // 프로젝트 목록에서 특정 프로젝트를 업데이트하는 함수
-  function updateProjectInList(updatedProject) {
-    setProjects((prevProjects) =>
-      prevProjects.map((project) =>
-        project.title === updatedProject.title ? updatedProject : project,
-      ),
-    );
-  }
-
-  function clearTaskFromProject(currentProject, newTask) {
-    const updatedProject = {
-      ...currentProject,
-      tasks: [...currentProject.tasks, newTask],
-    };
-
-    setSelectedProject(updatedProject); // 선택된 프로젝트 업데이트
-    updateProjectInList(updatedProject); // 프로젝트 목록 업데이트
-  }
-
-  function handleClearTaskToProject(currentProject, index) {
-    const updatedTasks = currentProject.tasks.filter(
-      (_, i) => i !== currentProject.tasks.length - 1 - index,
-    );
-    const updatedProject = { ...currentProject, tasks: updatedTasks };
-
-    setSelectedProject(updatedProject); // 선택된 프로젝트 업데이트
-    updateProjectInList(updatedProject); // 프로젝트 목록 업데이트
-  }
-
+  // 현재 렌더링할 컴포넌트를 결정하는 로직
   let currentView;
   if (isCreatingProject) {
+    // 프로젝트 생성 모드일 때는 CreateProject 컴포넌트를 렌더링
     currentView = <CreateProject onClickSaveProject={saveProject} />;
   } else if (selectedProject) {
+    // 프로젝트가 선택된 상태에서는 ProjectDetail 컴포넌트를 렌더링
     currentView = (
       <ProjectDetail
         project={selectedProject}
-        onClickDeleteProject={deleteProject}
-        onClickAddTask={clearTaskFromProject}
-        onClickClearTask={handleClearTaskToProject}
+        onClickDeleteProject={deleteProject} // 프로젝트 삭제 함수
+        onClickAddTask={clearTaskFromProject} // 작업 추가 함수
+        onClickClearTask={handleClearTaskToProject} // 작업 삭제 함수
       />
     );
   } else {
+    // 프로젝트가 선택되지 않았을 때는 NoProjectSelected 컴포넌트를 렌더링
     currentView = (
       <NoProjectSelected onClickCreatingProject={startCreatingProject} />
     );
@@ -89,11 +43,13 @@ function App() {
 
   return (
     <main className="h-screen my-8 flex gap-8">
+      {/* 사이드바에서 프로젝트 목록과 생성 버튼을 표시 */}
       <SideBar
-        projects={projects}
-        onClickSelectedProject={selectProject}
-        onClickCreatingProject={startCreatingProject}
+        projects={projects} // 프로젝트 목록을 사이드바로 전달
+        onClickSelectedProject={selectProject} // 프로젝트 클릭 시 실행되는 함수
+        onClickCreatingProject={startCreatingProject} // 프로젝트 생성 버튼 클릭 시 실행되는 함수
       />
+      {/* 현재 상태에 맞는 뷰를 렌더링 */}
       {currentView}
     </main>
   );

@@ -102,8 +102,6 @@ function App() {
     });
   }
 
-  function handleDeleteProject
-
   let showComponent = (
     <NoProjectSelected onClickCreatingProject={handleCreatingProjectClick} />
   );

@@ -1,21 +1,18 @@
-import { useState } from "react";
+import { useRef } from "react";
 
 // ProjectTask 컴포넌트 - 프로젝트의 작업 리스트를 관리하는 컴포넌트
 function ProjectTask({ tasks, onClickAddTask, onClickClear }) {
-  // 작업 입력 필드를 위한 상태 관리
-  const [taskInput, setTaskInput] = useState("");
-
-  // 입력 필드의 변화에 대응하는 핸들러
-  function handleInputChange(e) {
-    setTaskInput(e.target.value); // 입력 필드 값 업데이트
-  }
+  // 작업 입력 필드를 위한 useRef로 상태 관리
+  const taskInputRef = useRef("");
 
   // 'Add Task' 버튼 클릭 시 실행되는 함수
   function handleAddTaskClick() {
     // 입력된 작업이 비어 있지 않으면 작업 추가
-    if (taskInput.trim() !== "") {
-      onClickAddTask(taskInput); // 상위 컴포넌트에 작업 추가 요청
-      setTaskInput(""); // 입력 필드 초기화
+    const taskValue = taskInputRef.current.value.trim(); // useRef에서 값 추출
+
+    if (taskValue !== "") {
+      onClickAddTask(taskValue); // 상위 컴포넌트에 작업 추가 요청
+      taskInputRef.current.value = ""; // 입력 필드 초기화
     }
   }
 
@@ -28,8 +25,7 @@ function ProjectTask({ tasks, onClickAddTask, onClickClear }) {
       <div className="flex items-center gap-4">
         {/* 입력 필드 */}
         <input
-          value={taskInput} // 입력 값은 상태(taskInput)에 의해 관리됨
-          onChange={handleInputChange} // 값이 변경될 때마다 상태 업데이트
+          ref={taskInputRef} // useRef로 입력 필드 값 추적
           className="w-64 px-2 py-1 rounded-sm bg-stone-200"
         />
         {/* 추가 버튼 */}

@@ -15,11 +15,9 @@ function ProjectDetail({
     day: "2-digit",
   });
 
-  function handleAddTaskClick() {
-    const newTask = task.current.value;
+  function handleAddTaskClick(newTask) {
     if (newTask.trim() !== "") {
       onClickAddTask(project, newTask);
-      task.current.value = ""; // 입력 필드를 초기화
     }
   }
   function handleClearTaskClick(index) {
@@ -45,7 +43,6 @@ function ProjectDetail({
         </p>
       </header>
       <ProjectTask
-        ref={task}
         tasks={project.tasks}
         onClickAddTask={handleAddTaskClick}
         onClickClear={handleClearTaskClick}

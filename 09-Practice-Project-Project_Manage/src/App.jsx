@@ -16,7 +16,7 @@ function App() {
 
   function handleCreatingProjectClick() {
     setIsCreatingProject(true);
-    setSelectedProject();
+    setSelectedProject(null);
   }
 
   function handleSaveProjectClick(
@@ -54,26 +54,20 @@ function App() {
   }
 
   function handleAddTaskToProject(currentProject, newTask) {
-    console.log(`프로젝트 "${currentProject.title}"에 작업 추가: `, newTask);
     const updatedProject = {
       ...currentProject,
       tasks: [...currentProject.tasks, newTask],
     };
-    console.log("업데이트된 프로젝트 (작업 추가): ", updatedProject);
 
     setSelectedProject(updatedProject); // 선택된 프로젝트 업데이트
     updateProjectInList(updatedProject); // 프로젝트 목록 업데이트
   }
 
   function handleClearTaskToProject(currentProject, index) {
-    console.log(
-      `프로젝트 "${currentProject.title}"에서 작업 삭제 (인덱스: ${index})`,
-    );
     const updatedTasks = currentProject.tasks.filter(
       (_, i) => i !== currentProject.tasks.length - 1 - index,
     );
     const updatedProject = { ...currentProject, tasks: updatedTasks };
-    console.log("업데이트된 프로젝트 (작업 삭제): ", updatedProject);
 
     setSelectedProject(updatedProject); // 선택된 프로젝트 업데이트
     updateProjectInList(updatedProject); // 프로젝트 목록 업데이트

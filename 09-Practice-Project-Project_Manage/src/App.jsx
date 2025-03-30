@@ -9,7 +9,7 @@ function App() {
   const [selectedProject, setSelectedProject] = useState(null);
   const [isCreatingProject, setIsCreatingProject] = useState(false);
 
-  function handleSelectedProjectClick(newSelectedProject) {
+  function startCreatingProject(newSelectedProject) {
     setIsCreatingProject(false);
     setSelectedProject(newSelectedProject);
   }
@@ -19,11 +19,7 @@ function App() {
     setSelectedProject(null);
   }
 
-  function handleSaveProjectClick(
-    projectTitle,
-    projectDescription,
-    projectDueDate,
-  ) {
+  function saveProject(projectTitle, projectDescription, projectDueDate) {
     setProjects((prevProjects) => [
       ...prevProjects,
       {
@@ -75,9 +71,7 @@ function App() {
 
   let showComponent;
   if (isCreatingProject) {
-    showComponent = (
-      <CreateProject onClickSaveProject={handleSaveProjectClick} />
-    );
+    showComponent = <CreateProject onClickSaveProject={saveProject} />;
   } else if (selectedProject) {
     showComponent = (
       <ProjectDetail
@@ -97,7 +91,7 @@ function App() {
     <main className="h-screen my-8 flex gap-8">
       <SideBar
         projects={projects}
-        onClickSelectedProject={handleSelectedProjectClick}
+        onClickSelectedProject={startCreatingProject}
         onClickCreatingProject={handleCreatingProjectClick}
       />
       {showComponent}

@@ -4,8 +4,15 @@ import { useState } from "react";
 import CreateProject from "./components/CreateProject.jsx";
 import ProjectDetail from "./components/ProjectDetail.jsx";
 
+//Todo : 삭제
 const PROJECTS = [
-  { title: "Learn React", description: "dfsdfse", dueDate: "" },
+  {
+    title: "Learn React",
+    description:
+      "Learn React from the group up.\n\n" +
+      "Start with the basics, finish wih advanced knowledge.",
+    dueDate: "",
+  },
   { title: "Learn React2", description: "dfsdfse", dueDate: "" },
 ];
 
@@ -14,6 +21,7 @@ function App() {
   const [selectedProject, setSelectedProject] = useState();
   const [isCreatingProject, setIsCreatingProject] = useState(false);
 
+  //Todo : 로그 삭제
   console.log(projects);
   if (selectedProject) {
     console.log("selectedProject : " + selectedProject.title);
@@ -43,14 +51,27 @@ function App() {
         dueDate: projectDueDate,
       },
     ]);
+
     setIsCreatingProject(false); // 프로젝트 저장 후 다시 생성 모드 종료
+  }
+
+  function handleDeleteProjectClick(projectToDelete) {
+    setProjects((prevProjects) =>
+      prevProjects.filter((project) => project !== projectToDelete),
+    );
+    setSelectedProject(); // Todo: onReset 으로 빼기
   }
 
   let showComponent = (
     <NoProjectSelected onClickCreatingProject={handleCreatingProjectClick} />
   );
   if (selectedProject) {
-    showComponent = <ProjectDetail project={selectedProject} />;
+    showComponent = (
+      <ProjectDetail
+        project={selectedProject}
+        onClickDeleteProject={handleDeleteProjectClick}
+      />
+    );
   }
   if (isCreatingProject) {
     showComponent = (

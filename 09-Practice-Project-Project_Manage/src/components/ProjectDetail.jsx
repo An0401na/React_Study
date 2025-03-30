@@ -1,23 +1,32 @@
 import React from "react";
 
-function ProjectDetail(props) {
+function ProjectDetail({ project, onClickDeleteProject }) {
+  const formattedDate = new Date(project.dueDate).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "2-digit",
+  });
+
+  <p className="mb-4 text-stone-400">{formattedDate}</p>;
+
   return (
     <>
       <div className="w-[35rem] mt-16">
         <header className="pb-4 mb-4 border-b-2 border-stone-300">
           <div className="flex items-center justify-between">
             <h1 className="text-3xl font-bold text-stone-600 mb-2">
-              Learning React
+              {project.title}
             </h1>
-            <button className="text-stone-600 hover:text-stone-950">
+            <button
+              className="text-stone-600 hover:text-stone-950"
+              onClick={() => onClickDeleteProject(project)}
+            >
               Delete
             </button>
           </div>
-          <p className="mb-4 text-stone-400">Dec 29, 2024</p>
+          <p className="mb-4 text-stone-400">{formattedDate}</p>
           <p className="text-stone-600 whitespace-pre-wrap">
-            Learn React from the group up. <br />
-            <br />
-            Start with the basics, finish wih advanced knowledge.
+            {project.description}
           </p>
         </header>
         <h2 className="text-2xl font-bold text-stone-700 mb-4">Tasks</h2>

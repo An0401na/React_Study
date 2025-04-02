@@ -1,4 +1,5 @@
 import { useRef } from "react";
+import Input from "./Input.jsx";
 
 function CreateProject({ onClickSaveProject }) {
   // useRef로 각각의 입력 필드 값을 추적
@@ -39,38 +40,31 @@ function CreateProject({ onClickSaveProject }) {
       </form>
 
       {/* 프로젝트 제목 입력 필드 */}
-      <p className="flex flex-col gap-1 my-4">
-        <label className="text-sm font-bold uppercase text-stone-500">
-          TITLE
-        </label>
-        <input
-          ref={projectTitleRef} // useRef로 제목 입력 필드 값 추적
-          className="w-full p-1 border-b-2 rounded-sm border-stone-300 bg-stone-200 text-stone-600 focus:outline-none focus:border-stone-600"
-        />
-      </p>
+      <Input
+        textarea={false}
+        ref={projectTitleRef} // useRef로 제목 입력 필드 값 추적
+        className="w-full p-1 border-b-2 rounded-sm border-stone-300 bg-stone-200 text-stone-600 focus:outline-none focus:border-stone-600"
+      >
+        TITLE
+      </Input>
 
       {/* 프로젝트 설명 입력 필드 */}
-      <p className="flex flex-col gap-1 my-4">
-        <label className="text-sm font-bold uppercase text-stone-500">
-          DESCRIPTION
-        </label>
-        <textarea
-          ref={projectDescriptionRef} // useRef로 설명 입력 필드 값 추적
-          className="w-full p-1 border-b-2 rounded-sm border-stone-300 bg-stone-200 text-stone-600 focus:outline-none focus:border-stone-600"
-        />
-      </p>
-
+      <Input
+        textarea={true}
+        ref={projectDescriptionRef} // useRef로 설명 입력 필드 값 추적
+        className="w-full p-1 border-b-2 rounded-sm border-stone-300 bg-stone-200 text-stone-600 focus:outline-none focus:border-stone-600"
+      >
+        DESCRIPTION
+      </Input>
       {/* 프로젝트 마감일 입력 필드 */}
-      <p className="flex flex-col gap-1 my-4">
-        <label className="text-sm font-bold uppercase text-stone-500">
-          DUE DATE
-        </label>
-        <input
-          ref={projectDueDateRef} // useRef로 마감일 입력 필드 값 추적
-          type="date" // 날짜 입력 필드
-          className="w-full p-1 border-b-2 rounded-sm border-stone-300 bg-stone-200 text-stone-600 focus:outline-none focus:border-stone-600"
-        />
-      </p>
+      <Input
+        textarea={false}
+        ref={projectDueDateRef} // useRef로 마감일 입력 필드 값 추적
+        type="date" // 날짜 입력 필드
+        className="w-full p-1 border-b-2 rounded-sm border-stone-300 bg-stone-200 text-stone-600 focus:outline-none focus:border-stone-600"
+      >
+        DUE DATE
+      </Input>
     </div>
   );
 }

@@ -8,7 +8,8 @@ function CreateProject({ onClickSaveProject, onClickCancleProject }) {
   const projectTitleRef = useRef(""); // 프로젝트 제목을 추적하기 위한 ref
   const projectDescriptionRef = useRef(""); // 프로젝트 설명을 추적하기 위한 ref
   const projectDueDateRef = useRef(""); // 프로젝트 마감일을 추적하기 위한 ref
-  const modal = useRef();
+  const invalidCaseModal = useRef();
+  const duplicatedCaseModal = useRef();
 
   // 'Save' 버튼 클릭 시 호출되는 함수
   function handleSaveClick() {
@@ -23,13 +24,18 @@ function CreateProject({ onClickSaveProject, onClickCancleProject }) {
       description.trim() === "" ||
       dueDate.trim() === ""
     ) {
-      modal.current.open();
+      invalidCaseModal.current.open();
       return;
     }
 
     // 부모 컴포넌트로 추출한 값을 전달
     // onClickSaveProject는 부모 컴포넌트에서 전달된 함수로, 해당 값을 처리한다.
-    onClickSaveProject(title, description, dueDate);
+    const isSaved = onClickSaveProject(title, description, dueDate);
+
+    if (!isSaved) {
+      duplicatedCaseModal.current.open();
+      return;
+    }
   }
 
   function handleCancleClick() {
@@ -38,10 +44,16 @@ function CreateProject({ onClickSaveProject, onClickCancleProject }) {
 
   return (
     <>
-      <Modal ref={modal} buttonCaption="Close">
+      <Modal ref={invalidCaseModal} buttonCaption="Close">
         <h2 className="text-xl font-bold text-stone-700 my-4">잘못된 입력</h2>
         <p className="text-stone-600 mb-9">
           모든 입력 필드에 유효한 값을 입력해주세요.
+        </p>
+      </Modal>
+      <Modal ref={duplicatedCaseModal} buttonCaption="Close">
+        <h2 className="text-xl font-bold text-stone-700 my-4">중복된 타이틀</h2>
+        <p className="text-stone-600 mb-9">
+          동일한 프로젝트 타이틀이 존재합니다. 타이틀을 변경해주세요.
         </p>
       </Modal>
       <div className="w-[35rem] mt-16">

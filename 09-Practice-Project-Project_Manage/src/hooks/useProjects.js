@@ -28,7 +28,10 @@ export function useProjects() {
 
   // 새로운 프로젝트를 저장하는 함수
   function saveProject(projectTitle, projectDescription, projectDueDate) {
-    // Todo : 타이틀 중복 처리
+    const isDuplicate = projects.some(
+      (project) => project.title === projectTitle,
+    );
+    if (isDuplicate) return false;
 
     // 새로운 프로젝트 객체를 이전 프로젝트 목록에 추가
     setProjects((prevProjects) => [
@@ -43,6 +46,7 @@ export function useProjects() {
 
     // 프로젝트 생성 모드 종료
     setIsCreatingProject(false);
+    return true; // 저장 성공
   }
 
   // 새로운 프로젝트를 저장하는 함수

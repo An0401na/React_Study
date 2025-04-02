@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 function CreateProjectTask({ handleAddTaskClick }) {
-  const [task, setTask] = useState();
+  const [task, setTask] = useState("");
 
   function handleChange(event) {
     setTask(event.target.value);

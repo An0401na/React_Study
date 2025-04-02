@@ -13,6 +13,7 @@ function App() {
     selectProject,
     startCreatingProject,
     saveProject,
+    cancleProject,
     deleteProject,
     clearTaskFromProject,
     handleClearTaskToProject,
@@ -22,7 +23,12 @@ function App() {
   let currentView;
   if (isCreatingProject) {
     // 프로젝트 생성 모드일 때는 CreateProject 컴포넌트를 렌더링
-    currentView = <CreateProject onClickSaveProject={saveProject} />;
+    currentView = (
+      <CreateProject
+        onClickSaveProject={saveProject}
+        onClickCancleProject={cancleProject}
+      />
+    );
   } else if (selectedProject) {
     // 프로젝트가 선택된 상태에서는 ProjectDetail 컴포넌트를 렌더링
     currentView = (

@@ -28,6 +28,8 @@ export function useProjects() {
 
   // 새로운 프로젝트를 저장하는 함수
   function saveProject(projectTitle, projectDescription, projectDueDate) {
+    // Todo : 타이틀 중복 처리
+
     // 새로운 프로젝트 객체를 이전 프로젝트 목록에 추가
     setProjects((prevProjects) => [
       ...prevProjects,
@@ -39,6 +41,12 @@ export function useProjects() {
       },
     ]);
 
+    // 프로젝트 생성 모드 종료
+    setIsCreatingProject(false);
+  }
+
+  // 새로운 프로젝트를 저장하는 함수
+  function cancleProject() {
     // 프로젝트 생성 모드 종료
     setIsCreatingProject(false);
   }
@@ -98,6 +106,7 @@ export function useProjects() {
     selectProject,
     startCreatingProject,
     saveProject,
+    cancleProject,
     deleteProject,
     clearTaskFromProject,
     handleClearTaskToProject,

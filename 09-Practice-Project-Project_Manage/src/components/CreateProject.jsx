@@ -2,7 +2,7 @@ import { useRef } from "react";
 import Input from "./Input.jsx";
 import Modal from "./Modal.jsx";
 
-function CreateProject({ onClickSaveProject }) {
+function CreateProject({ onClickSaveProject, onClickCancleProject }) {
   // useRef로 각각의 입력 필드 값을 추적
   // useRef는 컴포넌트 리렌더링을 일으키지 않고 DOM 요소를 직접 참조할 수 있게 해준다.
   const projectTitleRef = useRef(""); // 프로젝트 제목을 추적하기 위한 ref
@@ -32,6 +32,10 @@ function CreateProject({ onClickSaveProject }) {
     onClickSaveProject(title, description, dueDate);
   }
 
+  function handleCancleClick() {
+    onClickCancleProject();
+  }
+
   return (
     <>
       <Modal ref={modal} buttonCaption="Close">
@@ -44,7 +48,11 @@ function CreateProject({ onClickSaveProject }) {
         {/* 폼의 UI */}
         <form className="mt-4 text-right">
           <menu className="flex items-center justify-end gap-4 my-4">
-            <button className="text-stone-800 hover:text-stone-950">
+            <button
+              className="text-stone-800 hover:text-stone-950"
+              onClick={handleCancleClick}
+              type="button"
+            >
               Cancel
             </button>
             {/* 'Save' 버튼: 사용자가 입력한 값들을 저장하는 버튼 */}

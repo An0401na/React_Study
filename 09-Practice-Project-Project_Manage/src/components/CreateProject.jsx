@@ -41,7 +41,6 @@ function CreateProject({ onClickSaveProject }) {
 
       {/* 프로젝트 제목 입력 필드 */}
       <Input
-        textarea={false}
         ref={projectTitleRef} // useRef로 제목 입력 필드 값 추적
         className="w-full p-1 border-b-2 rounded-sm border-stone-300 bg-stone-200 text-stone-600 focus:outline-none focus:border-stone-600"
       >
@@ -50,7 +49,7 @@ function CreateProject({ onClickSaveProject }) {
 
       {/* 프로젝트 설명 입력 필드 */}
       <Input
-        textarea={true}
+        textarea
         ref={projectDescriptionRef} // useRef로 설명 입력 필드 값 추적
         className="w-full p-1 border-b-2 rounded-sm border-stone-300 bg-stone-200 text-stone-600 focus:outline-none focus:border-stone-600"
       >
@@ -58,7 +57,6 @@ function CreateProject({ onClickSaveProject }) {
       </Input>
       {/* 프로젝트 마감일 입력 필드 */}
       <Input
-        textarea={false}
         ref={projectDueDateRef} // useRef로 마감일 입력 필드 값 추적
         type="date" // 날짜 입력 필드
         className="w-full p-1 border-b-2 rounded-sm border-stone-300 bg-stone-200 text-stone-600 focus:outline-none focus:border-stone-600"

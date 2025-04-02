@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import ProjectTaskList from "./ProjectTaskList.jsx";
+import CreateProjectTask from "./CreateProjectTask.jsx";
 
 // ProjectTask 컴포넌트 - 프로젝트의 작업 리스트를 관리하는 컴포넌트
 function ProjectTask({ tasks, onClickAddTask, onClickClear }) {
@@ -23,20 +24,10 @@ function ProjectTask({ tasks, onClickAddTask, onClickClear }) {
       <h2 className="text-2xl font-bold text-stone-700 mb-4">Tasks</h2>
 
       {/* 작업 입력 필드와 추가 버튼 */}
-      <div className="flex items-center gap-4">
-        {/* 입력 필드 */}
-        <input
-          ref={taskInputRef} // useRef로 입력 필드 값 추적
-          className="w-64 px-2 py-1 rounded-sm bg-stone-200"
-        />
-        {/* 추가 버튼 */}
-        <button
-          className="text-stone-700 hover:text-stone-950"
-          onClick={handleAddTaskClick} // 클릭 시 작업 추가
-        >
-          Add Task
-        </button>
-      </div>
+      <CreateProjectTask
+        taskInputRef={taskInputRef}
+        handleAddTaskClick={handleAddTaskClick}
+      ></CreateProjectTask>
 
       {/* 작업이 없을 경우 보여지는 메시지 */}
       {tasks.length === 0 ? (

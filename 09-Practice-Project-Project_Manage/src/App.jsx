@@ -51,6 +51,7 @@ function App() {
       {/* 사이드바에서 프로젝트 목록과 생성 버튼을 표시 */}
       <SideBar
         projects={projects} // 프로젝트 목록을 사이드바로 전달
+        selectedProject={selectedProject} // 현재 선택된 프로젝트를 강조하기 위해서 선택된 프로젝트 사이드바로 전달
         onClickSelectedProject={selectProject} // 프로젝트 클릭 시 실행되는 함수
         onClickCreatingProject={startCreatingProject} // 프로젝트 생성 버튼 클릭 시 실행되는 함수
       />

@@ -1,7 +1,12 @@
 import React from "react";
 
 // SideBar 컴포넌트 - 프로젝트 목록과 "프로젝트 추가" 버튼을 포함하는 사이드바 컴포넌트
-function SideBar({ projects, onClickSelectedProject, onClickCreatingProject }) {
+function SideBar({
+  projects,
+  selectedProject,
+  onClickSelectedProject,
+  onClickCreatingProject,
+}) {
   return (
     <aside className="w-1/3 px-8 py-16 bg-stone-900 text-stone-50 md:w-72 rounded-r-xl">
       <h2 className="mb-8 font-bold uppercase md:text-xl text-stone-200">
@@ -20,11 +25,22 @@ function SideBar({ projects, onClickSelectedProject, onClickCreatingProject }) {
       <ul className="mt-8">
         {/* projects 배열을 순회하며 각 프로젝트를 버튼으로 렌더링 */}
         {projects.map((project) => {
+          let cssClasses =
+            "w-full text-left px-2 py-1 rounded-sm my-1 hover:text-stone-200 hover:bg-stone-800";
+
+          if (
+            project.title === (selectedProject ? selectedProject.title : "")
+          ) {
+            cssClasses += " text-stone-200 bg-stone-800";
+          } else {
+            cssClasses += " text-stone-400";
+          }
+
           return (
             // 각 프로젝트 버튼
             <button
               key={project.title} // 각 프로젝트의 제목을 key로 사용하여 고유하게 구분
-              className="w-full text-left px-2 py-1 rounded-sm my-1 hover:text-stone-200 hover:bg-stone-800"
+              className={cssClasses}
               onClick={() => onClickSelectedProject(project)} // 프로젝트 선택 시 onClickSelectedProject 함수 실행
             >
               {project.title} {/* 프로젝트 제목 출력 */}

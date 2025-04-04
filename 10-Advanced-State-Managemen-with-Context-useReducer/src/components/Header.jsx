@@ -7,7 +7,7 @@ export default function Header() {
   const modal = useRef();
   const { items } = useContext(CartContext);
 
-  const cartQuantity = cart.items.length;
+  const cartQuantity = items.length;
 
   function handleOpenCartClick() {
     modal.current.open();

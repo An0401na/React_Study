@@ -15,7 +15,7 @@ function App() {
     saveProject,
     cancleProject,
     deleteProject,
-    clearTaskFromProject,
+    addTaskFromProject,
     handleClearTaskToProject,
   } = useProjects();
 
@@ -35,7 +35,7 @@ function App() {
       <ProjectDetail
         project={selectedProject}
         onClickDeleteProject={deleteProject} // 프로젝트 삭제 함수
-        onClickAddTask={clearTaskFromProject} // 작업 추가 함수
+        onClickAddTask={addTaskFromProject} // 작업 추가 함수
         onClickClearTask={handleClearTaskToProject} // 작업 삭제 함수
       />
     );

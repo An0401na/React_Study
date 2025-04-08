@@ -76,7 +76,7 @@ export function useProjects() {
   }
 
   // 프로젝트에 새로운 작업을 추가하는 함수
-  function clearTaskFromProject(currentProject, newTask) {
+  function addTaskFromProject(currentProject, newTask) {
     // 현재 프로젝트에 새로운 작업을 추가하여 업데이트
     const updatedProject = {
       ...currentProject,
@@ -112,7 +112,7 @@ export function useProjects() {
     saveProject,
     cancleProject,
     deleteProject,
-    clearTaskFromProject,
+    addTaskFromProject,
     handleClearTaskToProject,
   };
 }

@@ -158,6 +158,9 @@ function handleAddTaskClick() {
 ![image](https://github.com/user-attachments/assets/e195a993-b498-4b38-866e-17ff0d10bd84)
 ![image](https://github.com/user-attachments/assets/6f3b415c-a09c-4194-939d-e13356f5c8f7)
 ![image](https://github.com/user-attachments/assets/5b6237f3-01c0-46c2-bf53-f30bc925907e)
+![image](https://github.com/user-attachments/assets/adf757bf-ea08-4f03-9dce-2037864d4dc0)
+![image](https://github.com/user-attachments/assets/2b178ee3-0163-45e1-a0b8-03fadebea34d)
+
 
 
 

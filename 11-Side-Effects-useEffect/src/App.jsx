@@ -63,6 +63,17 @@ function App() {
       prevPickedPlaces.filter((place) => place.id !== selectedPlace.current),
     );
     modal.current.close();
+
+    // 로컬 스토리지에서 선택한 장소 id를 제거
+    const storedIds = JSON.parse(localStorage.getItem("selectedPlaces")) || [];
+    localStorage.setItem(
+      "selectedPlaces",
+      JSON.stringify(
+        storedIds.filter((id) => {
+          return id !== selectedPlace.current; // true 일때만 id를 남김
+        }),
+      ),
+    );
   }
 
   return (

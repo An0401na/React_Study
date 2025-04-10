@@ -13,6 +13,17 @@ function App() {
   const [avaliablePlaces, setAvaliablePlaces] = useState([]);
   const [pickedPlaces, setPickedPlaces] = useState([]);
 
+  useEffect(() => {
+    // 로컬 스토리지에 저장된 id 목록을 가져옴, 없으면 빈 배열로 초기화
+    const storedIds = JSON.parse(localStorage.getItem("selectedPlaces")) || [];
+    // 로컬 스토리지에 저장된 id 목록을 사용하여 장소를 찾음
+    const storedPlaces = storedIds.map((id) =>
+      AVAILABLE_PLACES.find((place) => place.id === id),
+    );
+    // 선택한 장소를 상태에 저장
+    setPickedPlaces(selectedPlaces);
+  }, []);
+
   // App 컴포넌트의 JSX 코드가 반환된 후 시점에서 부수효과 함수를 실행
   // 컴포넌트가 처음 렌더링될 때만 위치 정보를 요청함
   useEffect(() => {

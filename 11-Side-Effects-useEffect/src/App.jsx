@@ -21,7 +21,7 @@ function App() {
       AVAILABLE_PLACES.find((place) => place.id === id),
     );
     // 선택한 장소를 상태에 저장
-    setPickedPlaces(selectedPlaces);
+    setPickedPlaces(storedPlaces);
   }, []);
 
   // App 컴포넌트의 JSX 코드가 반환된 후 시점에서 부수효과 함수를 실행

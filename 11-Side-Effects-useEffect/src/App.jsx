@@ -10,7 +10,7 @@ import { sortPlacesByDistance } from "./loc.js";
 function App() {
   const modal = useRef();
   const selectedPlace = useRef();
-  const [avaliablePlaces, setAvaliablePlaces] = useState();
+  const [avaliablePlaces, setAvaliablePlaces] = useState([]);
   const [pickedPlaces, setPickedPlaces] = useState([]);
 
   // useEffect는 App 컴포넌트가 처음 렌더링될 때만 실행되도록 설정하여 무한루프 문제를 방지

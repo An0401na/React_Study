@@ -10,16 +10,22 @@ import { sortPlacesByDistance } from "./loc.js";
 function App() {
   const modal = useRef();
   const selectedPlace = useRef();
+  const [avaliablePlaces, setAvaliablePlaces] = useState();
   const [pickedPlaces, setPickedPlaces] = useState([]);
 
-  // 브라우저로부터 사용자 위치 정보를 가져오는 빌트인 함수
-  // Side Effect : 화면에 보여지는 것에 직접적인 영향을 주지 않으며
+  // 1. App 컴포넌트가 렌더링 될 때 실행됨 (정확히는 함수가 호출될 때 실행됨)
   navigator.geolocation.getCurrentPosition((position) => {
+    // 2. 위치 정보를 이용해서 정렬된 장소 리스트 생성
     const sortedPlaces = sortPlacesByDistance(
       AVAILABLE_PLACES,
       position.coords.latitude,
       position.coords.longitude,
-    ); // 브라우저로부터 호출 받음
+    );
+
+    // 3. setAvaliablePlaces로 상태를 업데이트
+    setAvaliablePlaces(sortedPlaces);
+
+    // 4. 상태 업데이트로 인해 App 컴포넌트는 리렌더링됨 => 무한 루프 발생
   });
 
   function handleStartRemovePlace(id) {
@@ -74,7 +80,7 @@ function App() {
         />
         <Places
           title="Available Places"
-          places={AVAILABLE_PLACES}
+          places={avaliablePlaces}
           onSelectPlace={handleSelectPlace}
         />
       </main>

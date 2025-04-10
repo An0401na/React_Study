@@ -13,8 +13,8 @@ function App() {
   const [avaliablePlaces, setAvaliablePlaces] = useState([]);
   const [pickedPlaces, setPickedPlaces] = useState([]);
 
-  // useEffect는 App 컴포넌트가 처음 렌더링될 때만 실행되도록 설정하여 무한루프 문제를 방지
   // App 컴포넌트의 JSX 코드가 반환된 후 시점에서 부수효과 함수를 실행
+  // 컴포넌트가 처음 렌더링될 때만 위치 정보를 요청함
   useEffect(() => {
     // 브라우저로부터 사용자 위치 정보를 가져오는 빌트인 함수
     navigator.geolocation.getCurrentPosition((position) => {
@@ -26,8 +26,7 @@ function App() {
 
       setAvaliablePlaces(sortedPlaces);
     });
-  }, []); // 의존성의 값이 변화했을때 경우에 한해 useEffect의 부수효과 함수를 실행
-  // useEffect의 두 번째 인자로 빈 배열([])을 전달하면 컴포넌트가 처음 렌더링될 때만 실행
+  }, []); // 빈 배열: 의존성 없음 → 최초 렌더링 때만 실행
 
   function handleStartRemovePlace(id) {
     modal.current.open();
@@ -46,6 +45,17 @@ function App() {
       const place = AVAILABLE_PLACES.find((place) => place.id === id);
       return [place, ...prevPickedPlaces];
     });
+
+    // 로컬 스토리지에 저장된 id 목록을 가져옴, 없으면 빈 배열로 초기화
+    const storedIds = JSON.parse(localStorage.getItem("selectedPlaces")) || [];
+    // 로컬 스토리지에 저장된 id 목록에 선택한 장소 id가 없으면 추가
+    if (storedIds.indexOf(id) === -1) {
+      // 로컬 스토리지에 선택한 장소 id를 추가
+      localStorage.setItem(
+        "selectedPlaces",
+        JSON.stringify([id, ...storedIds]),
+      );
+    }
   }
 
   function handleRemovePlace() {

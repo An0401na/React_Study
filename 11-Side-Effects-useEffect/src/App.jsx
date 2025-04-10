@@ -7,14 +7,14 @@ import DeleteConfirmation from "./components/DeleteConfirmation.jsx";
 import logoImg from "./assets/logo.png";
 import { sortPlacesByDistance } from "./loc.js";
 
-function App() {
-  // 로컬 스토리지에 저장된 id 목록을 가져옴, 없으면 빈 배열로 초기화
-  const storedIds = JSON.parse(localStorage.getItem("selectedPlaces")) || [];
-  // 로컬 스토리지에 저장된 id 목록을 사용하여 장소를 찾음
-  const storedPlaces = storedIds.map((id) =>
-    AVAILABLE_PLACES.find((place) => place.id === id),
-  );
+// 로컬 스토리지에 저장된 id 목록을 가져옴, 없으면 빈 배열로 초기화
+const storedIds = JSON.parse(localStorage.getItem("selectedPlaces")) || [];
+// 로컬 스토리지에 저장된 id 목록을 사용하여 장소를 찾음
+const storedPlaces = storedIds.map((id) =>
+  AVAILABLE_PLACES.find((place) => place.id === id),
+);
 
+function App() {
   const modal = useRef();
   const selectedPlace = useRef();
   const [avaliablePlaces, setAvaliablePlaces] = useState([]);

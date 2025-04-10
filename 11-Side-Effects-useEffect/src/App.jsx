@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import Places from "./components/Places.jsx";
 import { AVAILABLE_PLACES } from "./data.js";
@@ -13,20 +13,21 @@ function App() {
   const [avaliablePlaces, setAvaliablePlaces] = useState();
   const [pickedPlaces, setPickedPlaces] = useState([]);
 
-  // 1. App 컴포넌트가 렌더링 될 때 실행됨 (정확히는 함수가 호출될 때 실행됨)
-  navigator.geolocation.getCurrentPosition((position) => {
-    // 2. 위치 정보를 이용해서 정렬된 장소 리스트 생성
-    const sortedPlaces = sortPlacesByDistance(
-      AVAILABLE_PLACES,
-      position.coords.latitude,
-      position.coords.longitude,
-    );
+  // useEffect는 App 컴포넌트가 처음 렌더링될 때만 실행되도록 설정하여 무한루프 문제를 방지
+  // App 컴포넌트의 JSX 코드가 반환된 후 시점에서 부수효과 함수를 실행
+  useEffect(() => {
+    // 브라우저로부터 사용자 위치 정보를 가져오는 빌트인 함수
+    navigator.geolocation.getCurrentPosition((position) => {
+      const sortedPlaces = sortPlacesByDistance(
+        AVAILABLE_PLACES,
+        position.coords.latitude,
+        position.coords.longitude,
+      );
 
-    // 3. setAvaliablePlaces로 상태를 업데이트
-    setAvaliablePlaces(sortedPlaces);
-
-    // 4. 상태 업데이트로 인해 App 컴포넌트는 리렌더링됨 => 무한 루프 발생
-  });
+      setAvaliablePlaces(sortedPlaces);
+    });
+  }, []); // 의존성의 값이 변화했을때 경우에 한해 useEffect의 부수효과 함수를 실행
+  // useEffect의 두 번째 인자로 빈 배열([])을 전달하면 컴포넌트가 처음 렌더링될 때만 실행
 
   function handleStartRemovePlace(id) {
     modal.current.open();

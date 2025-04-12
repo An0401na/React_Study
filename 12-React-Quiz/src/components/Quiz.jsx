@@ -63,8 +63,10 @@ function Quiz({ quizs, onQuizEnd }) {
       <Answers
         answers={quiz.answers}
         selectedAnswer={selectedAnswer}
-        correctAnswer={quiz.correctAnswer}
+        // correctAnswer={quiz.correctAnswer}
+        correctAnswer={quiz.answers[0]}
         onAnswerSelect={handleAnswerSelect}
+        quizStage={quizStage}
       />
       <div id="skip-action">
         {quizStage === "quiz" && (

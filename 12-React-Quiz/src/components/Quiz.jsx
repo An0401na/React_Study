@@ -7,6 +7,9 @@ function Quiz(props) {
     <section id="quiz">
       <Question />
       <AnswerList />
+      <div id="skip-action">
+        <button type="button">Skip</button>
+      </div>
     </section>
   );
 }

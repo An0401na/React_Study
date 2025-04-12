@@ -12,7 +12,7 @@ function Question({ question, onTimeExpired }) {
       console.log("Timer cleared");
       clearTimeout(timer);
     };
-  }, [onTimeExpired]);
+  }, [onTimeExpired, question]);
 
   return (
     <section id="question">

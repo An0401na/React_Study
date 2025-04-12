@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import ProgressBar from "./ProgressBar.jsx";
 
 const TIMER = 10000;
-function Question({ question, onTimeExpired }) {
+function Question({ question, onTimeExpired, isAnswered }) {
   useEffect(() => {
     console.log("Timer started");
     const timer = setTimeout(() => {
@@ -17,7 +17,7 @@ function Question({ question, onTimeExpired }) {
 
   return (
     <section id="question">
-      <ProgressBar timer={TIMER} />
+      <ProgressBar timer={TIMER} isAnswered={isAnswered} />
       <h2>{question}</h2>
     </section>
   );

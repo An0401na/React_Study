@@ -1,10 +1,11 @@
 import React, { useCallback, useEffect, useState } from "react";
 import Question from "./Question.jsx";
-import Answers from "./Answers.jsx";
+import AnswerList from "./AnswerList.jsx";
 
 function Quiz({ quizs, onQuizEnd }) {
   console.log("Quiz 리렌더링");
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isAnswered, setIsAnswered] = useState(false);
   const quiz = quizs[currentIndex];
 
   const handleNextQuestion = useCallback(
@@ -22,8 +23,12 @@ function Quiz({ quizs, onQuizEnd }) {
   return (
     <section id="quiz">
       <div>{quiz.id}</div>
-      <Question question={quiz.text} onTimeExpired={handleNextQuestion} />
-      <Answers answers={quiz.answers} />
+      <Question
+        question={quiz.text}
+        onTimeExpired={handleNextQuestion}
+        isAnswerd={isAnswered}
+      />
+      <AnswerList answers={quiz.answers} />
       <div id="skip-action">
         <button type="button" onClick={handleNextQuestion}>
           Skip

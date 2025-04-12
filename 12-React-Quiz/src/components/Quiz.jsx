@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Question from "./Question.jsx";
 import Answers from "./Answers.jsx";
 
@@ -7,9 +7,9 @@ function Quiz({ quizs }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const quiz = quizs[currentIndex];
 
-  function handleNextQuestion() {
+  const handleNextQuestion = useCallback(function handleNextQuestion() {
     setCurrentIndex((prevIndex) => prevIndex + 1);
-  }
+  }, []);
 
   return (
     <section id="quiz">

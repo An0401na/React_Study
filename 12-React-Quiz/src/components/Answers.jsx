@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 
-function Answers({ answers, correctAnswer }) {
+function Answers({ answers, selectedAnswer, correctAnswer, onAnswerSelect }) {
   console.log("Answers 리렌더링");
-  const [selectedAnswer, setSelectedAnswer] = useState("");
 
   function handleAnswerSelect(answer) {
-    setSelectedAnswer(answer);
+    onAnswerSelect(answer);
   }
 
   return (

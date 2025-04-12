@@ -7,9 +7,13 @@ import { useState } from "react";
 
 function App() {
   console.log("App 재랜더링");
-  //Todo: useState로 viewMode를 관리 (quiz, summary)
   const [viewMode, setViewMode] = useState("quiz");
-  const shuffledQuizs = _.shuffle(QUIZS);
+  const shuffledQuizs = _.shuffle(QUIZS).map((quiz) => ({
+    ...quiz,
+    answers: _.shuffle(quiz.answers),
+    correctAnswer: quiz.answers[0],
+  }));
+
   console.log(shuffledQuizs);
 
   function handleViewModeChange(newViewMode) {

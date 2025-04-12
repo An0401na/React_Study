@@ -1,38 +1,77 @@
 import React, { useCallback, useEffect, useState } from "react";
 import Question from "./Question.jsx";
-import AnswerList from "./AnswerList.jsx";
+import Answers from "./Answers.jsx";
 
 function Quiz({ quizs, onQuizEnd }) {
   console.log("Quiz 리렌더링");
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isAnswered, setIsAnswered] = useState(false);
-  const quiz = quizs[currentIndex];
+  const [currentQuizIndex, setCurrentQuizIndex] = useState(0);
+  const quiz = quizs[currentQuizIndex];
 
-  const handleNextQuestion = useCallback(
-    function handleNextQuestion() {
-      console.log("currentIndex", currentIndex);
-      if (currentIndex >= quizs.length - 1) {
-        onQuizEnd("summary");
-        return;
+  const [quizStage, setQuizStage] = useState("quiz"); // "quiz" or "showSelectedAnswer" or "showCorrectAnswer"
+  const time = (quizStage === "quiz" ? 10 : 2) * 1000;
+
+  const [selectedAnswer, setSelectedAnswer] = useState("");
+
+  useEffect(() => {
+    // quizStage가 "quiz"일 때는 10초, "showSelectedAnswer"이거나"showCorrectAnswer"일 때는 2초
+    console.log("Timer started for quizStage: ", quizStage, "time: ", time);
+    const timer = setTimeout(() => {
+      if (quizStage === "quiz") {
+        setQuizStage("showCorrectAnswer");
+      } else if (quizStage === "showSelectedAnswer") {
+        setQuizStage("showCorrectAnswer");
+      } else if (quizStage === "showCorrectAnswer") {
+        handleNextQuestion();
       }
-      setCurrentIndex((prevIndex) => prevIndex + 1);
-    },
-    [currentIndex, quizs.length, onQuizEnd],
-  );
+    }, time);
+
+    return () => {
+      console.log("Timer cleared");
+      clearTimeout(timer);
+    };
+  }, [currentQuizIndex, quizStage, selectedAnswer]);
+
+  function handleNextQuestion() {
+    console.log("currentQuizIndex", currentQuizIndex);
+    if (currentQuizIndex >= quizs.length - 1) {
+      onQuizEnd("summary");
+      return;
+    }
+
+    setCurrentQuizIndex((prevIndex) => prevIndex + 1);
+    setQuizStage("quiz");
+  }
+  function handleSkipClick() {
+    setQuizStage("showCorrectAnswer");
+  }
+  function handleAnswerSelect(answer) {
+    setSelectedAnswer(answer);
+    setQuizStage("showSelectedAnswer");
+  }
 
   return (
     <section id="quiz">
-      <div>{quiz.id}</div>
+      <div>
+        {quiz.id} {quizStage}
+      </div>
       <Question
+        key={`${currentQuizIndex}-${quizStage}`}
         question={quiz.text}
-        onTimeExpired={handleNextQuestion}
-        isAnswerd={isAnswered}
+        time={time}
+        isAnswered={quizStage !== "quiz"}
       />
-      <AnswerList answers={quiz.answers} />
+      <Answers
+        answers={quiz.answers}
+        selectedAnswer={selectedAnswer}
+        correctAnswer={quiz.correctAnswer}
+        onAnswerSelect={handleAnswerSelect}
+      />
       <div id="skip-action">
-        <button type="button" onClick={handleNextQuestion}>
-          Skip
-        </button>
+        {quizStage === "quiz" && (
+          <button type="button" onClick={handleSkipClick}>
+            Skip
+          </button>
+        )}
       </div>
     </section>
   );

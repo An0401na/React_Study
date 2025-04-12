@@ -7,17 +7,17 @@ function Quiz({ quizs }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const quiz = quizs[currentIndex];
 
-  function handleSkipClick() {
+  function handleNextQuestion() {
     setCurrentIndex((prevIndex) => prevIndex + 1);
   }
 
   return (
     <section id="quiz">
       <div>{quiz.id}</div>
-      <Question question={quiz.text} />
+      <Question question={quiz.text} onTimeExpired={handleNextQuestion} />
       <Answers answers={quiz.answers} />
       <div id="skip-action">
-        <button type="button" onClick={handleSkipClick}>
+        <button type="button" onClick={handleNextQuestion}>
           Skip
         </button>
       </div>

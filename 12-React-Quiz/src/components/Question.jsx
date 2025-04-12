@@ -1,6 +1,12 @@
 import React from "react";
 
-function Question({ question }) {
+const TIMER = 3000;
+function Question({ question, onTimeExpired }) {
+  console.log("Timer started");
+  const timer = setTimeout(() => {
+    onTimeExpired();
+  }, TIMER);
+
   return (
     <section id="question">
       <progress value={3} max={10} />

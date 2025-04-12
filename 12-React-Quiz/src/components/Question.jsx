@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
+import ProgressBar from "./ProgressBar.jsx";
 
-const TIMER = 3000;
+const TIMER = 10000;
 function Question({ question, onTimeExpired }) {
   useEffect(() => {
     console.log("Timer started");
@@ -16,7 +17,7 @@ function Question({ question, onTimeExpired }) {
 
   return (
     <section id="question">
-      <progress value={3} max={TIMER} />
+      <ProgressBar timer={TIMER} />
       <h2>{question}</h2>
     </section>
   );

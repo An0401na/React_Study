@@ -11,7 +11,7 @@ function userAnswerContextReducer(state, action) {
   return state;
 }
 
-function userAnsweProvider({ children }) {
+export default function UserAnswerContextProvider({ children }) {
   const [userAnswer, userAnswerDispatch] = useReducer(
     userAnswerContextReducer,
     {

@@ -20,7 +20,8 @@ export default function UserAnswerContextProvider({ children }) {
   );
 
   function addUserAnswer(answer) {
-    const updatedUserAnswer = [...userAnswer.userAnswer, answer];
+    const updatedUserAnswer = [...userAnswer.userAnswer];
+    updatedUserAnswer.push(answer);
 
     return updatedUserAnswer;
   }

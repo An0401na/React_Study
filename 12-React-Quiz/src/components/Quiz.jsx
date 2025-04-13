@@ -1,6 +1,7 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import Question from "./Question.jsx";
 import Answers from "./Answers.jsx";
+import { UserAnswerContext } from "../store/user-answer.jsx";
 
 function Quiz({ quizs, onQuizEnd }) {
   console.log("Quiz 리렌더링");
@@ -11,6 +12,8 @@ function Quiz({ quizs, onQuizEnd }) {
   const time = (quizStage === "quiz" ? 10 : 2) * 1000;
 
   const [selectedAnswer, setSelectedAnswer] = useState("");
+  const { userAnswer, addUserAnswer } = useContext(UserAnswerContext);
+  console.log(userAnswer);
 
   useEffect(() => {
     // quizStage가 "quiz"일 때는 10초, "showSelectedAnswer"이거나"showCorrectAnswer"일 때는 2초
@@ -43,10 +46,20 @@ function Quiz({ quizs, onQuizEnd }) {
   }
   function handleSkipClick() {
     setQuizStage("showCorrectAnswer");
+    addUserAnswer({
+      question: quiz.text,
+      selectedAnswer: "",
+      result: skip,
+    });
   }
   function handleAnswerSelect(answer) {
     setSelectedAnswer(answer);
     setQuizStage("showSelectedAnswer");
+    addUserAnswer({
+      question: quiz.text,
+      selectedAnswer: answer,
+      result: answer === quiz.correctAnswer ? "correct" : "wrong",
+    });
   }
 
   return (

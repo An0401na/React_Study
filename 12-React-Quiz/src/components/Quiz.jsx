@@ -10,7 +10,7 @@ function Quiz({ quizs, onQuizEnd }) {
   const { addUserAnswer } = useContext(UserAnswerContext);
 
   const quiz = quizs[currentQuizIndex];
-  const time = (quizStage === "quiz" ? 10 : 1) * 1000;
+  const time = (quizStage === "quiz" ? 10 : 0.5) * 1000;
 
   useEffect(() => {
     // quizStage가 "quiz"일 때는 10초, "showSelectedAnswer"이거나"showCorrectAnswer"일 때는 1초

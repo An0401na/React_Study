@@ -43,7 +43,7 @@ function Quiz({ quizs, onQuizEnd }) {
     return () => {
       clearTimeout(timer);
     };
-  }, [currentQuizIndex, quizStage, selectedAnswer]); // 현재 퀴즈 인덱스, 퀴즈 스테이지, 선택된 답 변경시 실행
+  }, [currentQuizIndex, quizStage]); // 현재 퀴즈 인덱스, 퀴즈 스테이지 변경시 실행
 
   // 다음 문제로 넘어가는 함수
   function handleNextQuestion() {

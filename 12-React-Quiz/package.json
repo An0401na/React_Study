@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "<https://an0401na.github.io/React_Study/12-React-Quiz/>",
+  "homepage": "https://an0401na.github.io/React_Study/12-React-Quiz/",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

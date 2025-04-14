@@ -54,6 +54,7 @@ function Quiz({ quizs, onQuizEnd }) {
     }
 
     // 그렇지 않으면 퀴즈 인덱스를 증가시켜서 다음 문제로 진행
+    setSelectedAnswer(""); // 선택 초기화
     setCurrentQuizIndex((prevIndex) => prevIndex + 1);
     setQuizStage("quiz"); // 새로운 문제로 넘어가면 "quiz" 상태로 리셋
   }

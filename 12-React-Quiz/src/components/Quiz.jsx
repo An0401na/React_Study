@@ -8,12 +8,10 @@ function Quiz({ quizs, onQuizEnd }) {
   const [currentQuizIndex, setCurrentQuizIndex] = useState(0);
   const [quizStage, setQuizStage] = useState("quiz"); // "quiz" or "showSelectedAnswer" or "showCorrectAnswer"
   const [selectedAnswer, setSelectedAnswer] = useState("");
-  const { userAnswer, addUserAnswer } = useContext(UserAnswerContext);
+  const { addUserAnswer } = useContext(UserAnswerContext);
 
   const quiz = quizs[currentQuizIndex];
   const time = (quizStage === "quiz" ? 10 : 1) * 1000;
-
-  console.log("### userAnswer : ", userAnswer);
 
   useEffect(() => {
     // quizStage가 "quiz"일 때는 10초, "showSelectedAnswer"이거나"showCorrectAnswer"일 때는 2초

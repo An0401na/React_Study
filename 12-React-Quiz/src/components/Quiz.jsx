@@ -1,115 +1,115 @@
 import React, { useContext, useEffect, useState } from "react";
 import Question from "./Question.jsx";
 import Answers from "./Answers.jsx";
-import { UserAnswerContext } from "../store/user-answer-context.jsx"; // 사용자 답안을 관리하는 Context
+import { UserAnswerContext } from "../store/user-answer-context.jsx"; // 사용자 답안을 저장할 수 있는 컨텍스트
 
+// 퀴즈 화면의 상태를 상수로 정의
 const STAGES = {
-  QUIZ: "quiz",
-  SELECTED: "showSelectedAnswer",
-  CORRECT: "showCorrectAnswer",
+  QUIZ: "quiz", // 문제를 풀고 있는 상태
+  SELECTED: "showSelectedAnswer", // 사용자가 선택한 답안을 보여주는 상태
+  CORRECT: "showCorrectAnswer", // 정답을 보여주는 상태
 };
 
+// 퀴즈 전체 흐름을 관리하는 Quiz 컴포넌트
 function Quiz({ quizs, onQuizEnd }) {
-  // 현재 퀴즈 인덱스 상태 (어떤 퀴즈를 풀고 있는지)
+  // 현재 퀴즈 문제의 인덱스 (0번부터 시작)
   const [currentQuizIndex, setCurrentQuizIndex] = useState(0);
 
-  // 퀴즈 진행 상태 (퀴즈 화면, 선택된 답 보여주기, 정답 보기 등)
-  const [quizStage, setQuizStage] = useState("quiz"); // "quiz" or "showSelectedAnswer" or "showCorrectAnswer"
+  // 현재 화면이 어떤 상태인지 관리 QUIZ(quiz), SELECTED(showSelectedAnswer), CORRECT(showCorrectAnswer)
+  const [quizStage, setQuizStage] = useState(STAGES.QUIZ);
 
-  // 사용자가 선택한 답 상태
+  // 사용자가 선택한 답 (정답 여부 확인용)
   const [selectedAnswer, setSelectedAnswer] = useState("");
 
-  // UserAnswerContext에서 답안을 추가하는 함수 가져오기
+  // 사용자 답안을 저장하는 컨텍스트에서 함수 불러오기
   const { addUserAnswer } = useContext(UserAnswerContext);
 
-  // 현재 문제 (현재 퀴즈 배열에서 `currentQuizIndex` 번째 문제)
+  // 현재 보여줄 퀴즈 문제 정보
   const quiz = quizs[currentQuizIndex];
 
-  // 각 퀴즈 스테이지에 따른 타이머 값
-  const time = (quizStage === "quiz" ? 10 : 0.5) * 1000; // "quiz"일 때 10초, 그 외에는 0.5초
+  // 각 상태에 따라 자동으로 전환되는 시간 (ms 단위)
+  const time = (quizStage === STAGES.QUIZ ? 10 : 0.5) * 1000;
 
-  // 효과: quizStage가 변경될 때마다 타이머 실행
+  // 상태(quizStage)가 바뀔 때마다 타이머 실행
   useEffect(() => {
     const timer = setTimeout(() => {
-      // quizStage가 "quiz"일 때는 10초 후에 "showCorrectAnswer"로 전환
-      if (quizStage === "quiz") {
-        setQuizStage("showCorrectAnswer");
-      }
-      // "showSelectedAnswer"일 때는 0.5초 후에 "showCorrectAnswer"로 전환
-      else if (quizStage === "showSelectedAnswer") {
-        setQuizStage("showCorrectAnswer");
-      }
-      // "showCorrectAnswer"일 때는 0.5초 후에 다음 문제로 넘어감
-      else if (quizStage === "showCorrectAnswer") {
+      // 아직 정답 보기 단계가 아니면 정답 보기로 전환
+      if (quizStage !== STAGES.CORRECT) {
+        setQuizStage(STAGES.CORRECT);
+      } else {
+        // 이미 정답을 보고 있다면 다음 문제로 넘어감
         handleNextQuestion();
       }
     }, time);
 
-    // 컴포넌트가 unmount될 때 타이머를 클리어
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [currentQuizIndex, quizStage]); // 현재 퀴즈 인덱스, 퀴즈 스테이지 변경시 실행
+    // 컴포넌트가 언마운트되거나 quizStage가 바뀌기 전에 타이머 제거
+    return () => clearTimeout(timer);
+  }, [currentQuizIndex, quizStage]);
 
   // 다음 문제로 넘어가는 함수
   function handleNextQuestion() {
-    // 퀴즈가 끝났으면 결과 화면으로 이동
+    // 마지막 문제였다면 퀴즈 종료 처리
     if (currentQuizIndex >= quizs.length - 1) {
-      onQuizEnd("summary"); // "summary"로 상태 변경 (결과 화면)
+      onQuizEnd("summary"); // 퀴즈 요약 화면으로 전환
       return;
     }
 
-    // 그렇지 않으면 퀴즈 인덱스를 증가시켜서 다음 문제로 진행
-    setSelectedAnswer(""); // 선택 초기화
-    setCurrentQuizIndex((prevIndex) => prevIndex + 1);
-    setQuizStage("quiz"); // 새로운 문제로 넘어가면 "quiz" 상태로 리셋
+    // 상태 초기화 후 다음 문제로 진행
+    setSelectedAnswer(""); // 이전 선택 제거
+    setCurrentQuizIndex((prevIndex) => prevIndex + 1); // 다음 문제 인덱스로 이동
+    setQuizStage(STAGES.QUIZ); // 상태 초기화 (새 문제 시작)
   }
 
-  // 사용자가 'Skip' 버튼을 클릭했을 때 실행되는 함수
+  // 사용자가 "Skip" 버튼을 눌렀을 때
   function handleSkipClick() {
-    setQuizStage("showCorrectAnswer"); // 즉시 정답 보여주기
-    // 사용자 답안을 추가하고, 결과는 "skipped"로 처리
+    // 바로 정답 보기 상태로 전환
+    setQuizStage(STAGES.CORRECT);
+
+    // 사용자 답안 저장 (선택하지 않았으므로 skipped 처리)
     addUserAnswer({
       id: quiz.id,
       question: quiz.text,
-      selectedAnswer: "", // 답을 선택하지 않았음
-      result: "skipped", // "skipped" 결과 처리
+      selectedAnswer: "",
+      result: "skipped",
     });
   }
 
-  // 사용자가 답안을 선택했을 때 실행되는 함수
+  // 사용자가 답안을 선택했을 때 호출되는 함수
   function handleAnswerSelect(answer) {
-    setSelectedAnswer(answer); // 선택한 답을 상태에 저장
-    setQuizStage("showSelectedAnswer"); // 선택한 답을 화면에 보여주는 상태로 변경
-    // 사용자 답안을 추가하고, 정답/오답 결과를 처리
+    setSelectedAnswer(answer); // 선택한 답 저장
+    setQuizStage(STAGES.SELECTED); // 선택한 답을 잠깐 보여주는 상태로 전환
+
+    // 사용자 답안 저장 (정답 여부 포함)
     addUserAnswer({
       id: quiz.id,
       question: quiz.text,
       selectedAnswer: answer,
-      result: answer === quiz.correctAnswer ? "correct" : "wrong", // 선택한 답이 정답인지 확인
+      result: answer === quiz.correctAnswer ? "correct" : "wrong",
     });
   }
 
   return (
     <section id="quiz">
-      {/* 문제를 표시하는 컴포넌트 */}
+      {/* 질문 표시 컴포넌트 */}
       <Question
-        key={`${currentQuizIndex}-${quizStage}`} // 문제와 상태에 따라 고유한 key 제공
+        key={`${currentQuizIndex}-${quizStage}`} // 상태 변경 시 리렌더링을 위한 고유 key
         question={quiz.text} // 문제 질문
         time={time} // 타이머 시간
-        isAnswered={quizStage !== "quiz"} // 답을 선택했다면 true
+        isAnswered={quizStage !== STAGES.QUIZ} // 문제를 풀었는지 여부 (타이머 표시 조건 등으로 사용 가능)
       />
-      {/* 답안을 선택하는 컴포넌트 */}
+
+      {/* 답안 선택 컴포넌트 */}
       <Answers
-        answers={quiz.answers} // 선택 가능한 답
-        selectedAnswer={selectedAnswer} // 선택된 답
-        correctAnswer={quiz.correctAnswer} // 정답
-        onAnswerSelect={handleAnswerSelect} // 답안 제출 함수
-        quizStage={quizStage} // 현재 퀴즈 스테이지 (quiz, showSelectedAnswer, showCorrectAnswer)
+        answers={quiz.answers} // 선택지 목록
+        selectedAnswer={selectedAnswer} // 현재 선택한 답
+        correctAnswer={quiz.correctAnswer} // 정답 (정답 표시용)
+        onAnswerSelect={handleAnswerSelect} // 답안 선택 핸들러
+        quizStage={quizStage} // 현재 퀴즈 상태
       />
-      {/* 퀴즈가 진행 중일 때만 Skip 버튼 표시 */}
+
+      {/* 문제 푸는 중에만 Skip 버튼 표시 */}
       <div id="skip-action">
-        {quizStage === "quiz" && (
+        {quizStage === STAGES.QUIZ && (
           <button type="button" onClick={handleSkipClick}>
             Skip
           </button>

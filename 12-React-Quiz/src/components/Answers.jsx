@@ -7,12 +7,9 @@ function Answers({
   onAnswerSelect,
   quizStage,
 }) {
-  console.log("Answers 리렌더링");
-
   function handleAnswerSelect(answer) {
     onAnswerSelect(answer);
   }
-  console.log("correctAnswer", correctAnswer);
 
   return (
     <section id="answers">

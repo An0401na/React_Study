@@ -4,18 +4,16 @@ import Answers from "./Answers.jsx";
 import { UserAnswerContext } from "../store/user-answer-context.jsx";
 
 function Quiz({ quizs, onQuizEnd }) {
-  console.log("Quiz 리렌더링");
   const [currentQuizIndex, setCurrentQuizIndex] = useState(0);
   const [quizStage, setQuizStage] = useState("quiz"); // "quiz" or "showSelectedAnswer" or "showCorrectAnswer"
   const [selectedAnswer, setSelectedAnswer] = useState("");
   const { addUserAnswer } = useContext(UserAnswerContext);
 
   const quiz = quizs[currentQuizIndex];
+  // quizStage가 "quiz"일 때는 10초, "showSelectedAnswer"이거나"showCorrectAnswer"일 때는 1초
   const time = (quizStage === "quiz" ? 10 : 1) * 1000;
 
   useEffect(() => {
-    // quizStage가 "quiz"일 때는 10초, "showSelectedAnswer"이거나"showCorrectAnswer"일 때는 2초
-    console.log("Timer started for quizStage: ", quizStage, "time: ", time);
     const timer = setTimeout(() => {
       if (quizStage === "quiz") {
         setQuizStage("showCorrectAnswer");
@@ -33,7 +31,6 @@ function Quiz({ quizs, onQuizEnd }) {
   }, [currentQuizIndex, quizStage, selectedAnswer]);
 
   function handleNextQuestion() {
-    console.log("currentQuizIndex", currentQuizIndex);
     if (currentQuizIndex >= quizs.length - 1) {
       onQuizEnd("summary");
       return;

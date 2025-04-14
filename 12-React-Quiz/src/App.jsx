@@ -7,7 +7,6 @@ import { useState } from "react";
 import UserAnswerContextProvider from "./store/user-answer-context.jsx";
 
 function App() {
-  console.log("App 재랜더링");
   const [viewMode, setViewMode] = useState("quiz");
   const shuffledQuizs = _.shuffle(QUIZS).map((quiz) => ({
     ...quiz,
@@ -24,7 +23,6 @@ function App() {
   return (
     <UserAnswerContextProvider>
       <Header />
-      {/*//Todo : shuffledQuizs로 바꾸기*/}
       {viewMode === "quiz" ? (
         <Quiz quizs={shuffledQuizs} onQuizEnd={handleViewModeChange} />
       ) : (

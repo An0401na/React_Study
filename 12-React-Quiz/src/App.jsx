@@ -29,11 +29,10 @@ function App() {
     <UserAnswerContextProvider>
       <Header /> {/* 상단 헤더 컴포넌트 표시 */}
       {/* viewMode 상태에 따라 퀴즈 화면 또는 결과 화면을 렌더링 */}
-      {viewMode === "quiz" ? (
-        <Quiz quizs={shuffledQuizs} onQuizEnd={handleViewModeChange} /> // 퀴즈 화면
-      ) : (
-        <Summary /> // 결과 화면
+      {viewMode === "quiz" && (
+        <Quiz quizs={shuffledQuizs} onQuizEnd={handleViewModeChange} />
       )}
+      {viewMode === "summary" && <Summary />}
     </UserAnswerContextProvider>
   );
 }

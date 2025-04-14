@@ -1,7 +1,7 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import Question from "./Question.jsx";
 import Answers from "./Answers.jsx";
-import { UserAnswerContext } from "../store/user-answer.jsx";
+import { UserAnswerContext } from "../store/user-answer-context.jsx";
 
 function Quiz({ quizs, onQuizEnd }) {
   console.log("Quiz 리렌더링");
@@ -9,7 +9,7 @@ function Quiz({ quizs, onQuizEnd }) {
   const quiz = quizs[currentQuizIndex];
 
   const [quizStage, setQuizStage] = useState("quiz"); // "quiz" or "showSelectedAnswer" or "showCorrectAnswer"
-  const time = (quizStage === "quiz" ? 10 : 2) * 1000;
+  const time = (quizStage === "quiz" ? 10 : 1) * 1000;
 
   const [selectedAnswer, setSelectedAnswer] = useState("");
   const { userAnswer, addUserAnswer } = useContext(UserAnswerContext);

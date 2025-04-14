@@ -64,9 +64,6 @@ function Quiz({ quizs, onQuizEnd }) {
 
   return (
     <section id="quiz">
-      <div>
-        {quiz.id} {quizStage}
-      </div>
       <Question
         key={`${currentQuizIndex}-${quizStage}`}
         question={quiz.text}

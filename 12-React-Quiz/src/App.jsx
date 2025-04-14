@@ -4,9 +4,7 @@ import Summary from "./components/Summary.jsx";
 import QUIZS from "./questions.js";
 import _ from "lodash";
 import { useState } from "react";
-import UserAnswerContextProvider, {
-  UserAnswerContext,
-} from "./store/user-answer.jsx";
+import UserAnswerContextProvider from "./store/user-answer-context.jsx";
 
 function App() {
   console.log("App 재랜더링");

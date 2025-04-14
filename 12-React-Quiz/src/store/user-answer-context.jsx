@@ -31,7 +31,7 @@ export default function UserAnswerContextProvider({ children }) {
   );
 
   // 사용자 답안을 추가하는 함수 정의
-  function handleAddUserAnswer(answer) {
+  function addAnswer(answer) {
     // 사용자가 선택한 답안을 추가하는 액션을 디스패치
     userAnswerDispatch({ type: "ADD_USER_ANSWER", payload: answer });
   }
@@ -39,7 +39,7 @@ export default function UserAnswerContextProvider({ children }) {
   // Context 값 (상태와 함수)을 객체로 묶어서 제공
   const ctxValue = {
     userAnswer: userAnswerState, // 현재 상태
-    addUserAnswer: handleAddUserAnswer, // 답안 추가 함수
+    addUserAnswer: addAnswer, // 답안 추가 함수
   };
 
   // 자식 컴포넌트에 Context 값을 제공하는 Provider 반환

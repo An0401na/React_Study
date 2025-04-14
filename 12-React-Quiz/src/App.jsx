@@ -1,7 +1,7 @@
 import Header from "./components/Header.jsx";
 import Quiz from "./components/Quiz.jsx";
 import Summary from "./components/Summary.jsx";
-import QUIZS from "./questions.js";
+import QUIZS from "./nonsense_questions_ko.js";
 import _ from "lodash";
 import { useState } from "react";
 import UserAnswerContextProvider from "./store/user-answer-context.jsx";

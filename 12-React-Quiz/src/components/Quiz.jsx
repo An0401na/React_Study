@@ -1,7 +1,13 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Question from "./Question.jsx";
 import Answers from "./Answers.jsx";
 import { UserAnswerContext } from "../store/user-answer-context.jsx"; // 사용자 답안을 관리하는 Context
+
+const STAGES = {
+  QUIZ: "quiz",
+  SELECTED: "showSelectedAnswer",
+  CORRECT: "showCorrectAnswer",
+};
 
 function Quiz({ quizs, onQuizEnd }) {
   // 현재 퀴즈 인덱스 상태 (어떤 퀴즈를 풀고 있는지)

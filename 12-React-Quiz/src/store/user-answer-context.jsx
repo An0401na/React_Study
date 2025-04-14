@@ -1,5 +1,4 @@
 import { createContext, useReducer } from "react";
-import answers from "../components/Answers.jsx";
 
 export const UserAnswerContext = createContext({
   userAnswer: [], // 문제, 선택한 답, 결과(skip, correct, wrong)를 값으로 하는 객체를 배열로 저장

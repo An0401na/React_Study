@@ -14,8 +14,6 @@ function App() {
     correctAnswer: quiz.answers[0],
   }));
 
-  console.log(shuffledQuizs);
-
   function handleViewModeChange(newViewMode) {
     setViewMode(newViewMode);
   }

@@ -45,15 +45,17 @@ function Quiz({ quizs, onQuizEnd }) {
   function handleSkipClick() {
     setQuizStage("showCorrectAnswer");
     addUserAnswer({
+      id: quiz.id,
       question: quiz.text,
       selectedAnswer: "",
-      result: "skip",
+      result: "skipped",
     });
   }
   function handleAnswerSelect(answer) {
     setSelectedAnswer(answer);
     setQuizStage("showSelectedAnswer");
     addUserAnswer({
+      id: quiz.id,
       question: quiz.text,
       selectedAnswer: answer,
       result: answer === quiz.correctAnswer ? "correct" : "wrong",

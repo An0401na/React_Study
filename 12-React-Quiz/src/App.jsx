@@ -25,9 +25,8 @@ function App() {
     <UserAnswerContextProvider>
       <Header />
       {/*//Todo : shuffledQuizs로 바꾸기*/}
-      {/*  <Quiz quizs={shuffledQuizs} />*/}
       {viewMode === "quiz" ? (
-        <Quiz quizs={QUIZS} onQuizEnd={handleViewModeChange} />
+        <Quiz quizs={shuffledQuizs} onQuizEnd={handleViewModeChange} />
       ) : (
         <Summary />
       )}

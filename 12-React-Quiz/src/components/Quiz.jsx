@@ -6,14 +6,14 @@ import { UserAnswerContext } from "../store/user-answer-context.jsx";
 function Quiz({ quizs, onQuizEnd }) {
   console.log("Quiz 리렌더링");
   const [currentQuizIndex, setCurrentQuizIndex] = useState(0);
-  const quiz = quizs[currentQuizIndex];
-
   const [quizStage, setQuizStage] = useState("quiz"); // "quiz" or "showSelectedAnswer" or "showCorrectAnswer"
-  const time = (quizStage === "quiz" ? 10 : 1) * 1000;
-
   const [selectedAnswer, setSelectedAnswer] = useState("");
   const { userAnswer, addUserAnswer } = useContext(UserAnswerContext);
-  console.log(userAnswer);
+
+  const quiz = quizs[currentQuizIndex];
+  const time = (quizStage === "quiz" ? 10 : 1) * 1000;
+
+  console.log("### userAnswer : ", userAnswer);
 
   useEffect(() => {
     // quizStage가 "quiz"일 때는 10초, "showSelectedAnswer"이거나"showCorrectAnswer"일 때는 2초
@@ -49,7 +49,7 @@ function Quiz({ quizs, onQuizEnd }) {
     addUserAnswer({
       question: quiz.text,
       selectedAnswer: "",
-      result: skip,
+      result: "skip",
     });
   }
   function handleAnswerSelect(answer) {
@@ -76,8 +76,7 @@ function Quiz({ quizs, onQuizEnd }) {
       <Answers
         answers={quiz.answers}
         selectedAnswer={selectedAnswer}
-        // correctAnswer={quiz.correctAnswer}
-        correctAnswer={quiz.answers[0]}
+        correctAnswer={quiz.correctAnswer}
         onAnswerSelect={handleAnswerSelect}
         quizStage={quizStage}
       />

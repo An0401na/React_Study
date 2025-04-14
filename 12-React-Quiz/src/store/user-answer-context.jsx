@@ -8,7 +8,8 @@ export const UserAnswerContext = createContext({
 
 function userAnswerReducer(state, action) {
   if (action.type === "ADD_USER_ANSWER") {
-    const updatedUserAnswer = [...state.userAnswer, action.payload];
+    const updatedUserAnswer = [...state, action.payload];
+    // const updatedUserAnswer = [...state.userAnswer, action.payload];
     return updatedUserAnswer;
   }
   return state;

@@ -13,10 +13,7 @@ function userAnswerReducer(state, action) {
   // 만약 액션 타입이 "ADD_USER_ANSWER"라면, 사용자 답안을 배열에 추가
   switch (action.type) {
     case "ADD_USER_ANSWER":
-      return {
-        ...state,
-        userAnswer: [...state.userAnswer, action.payload], // 기존 상태를 복사하고 새 답안을 추가
-      };
+      return [...state, action.payload]; // 기존 상태를 복사하고 새 답안을 추가
     default:
       return state;
   }

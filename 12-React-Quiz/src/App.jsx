@@ -27,7 +27,7 @@ function App() {
   return (
     <>
       <Header /> {/* 상단 헤더 컴포넌트 표시 */}
-      // UserAnswerContextProvider로 감싸서 Quiz에서 사용자 답변 상태를 관리
+      {/*UserAnswerContextProvider로 감싸서 Quiz에서 사용자 답변 상태를 관리*/}
       <UserAnswerContextProvider>
         {/* viewMode 상태에 따라 퀴즈 화면 또는 결과 화면을 렌더링 */}
         {viewMode === "quiz" && (

@@ -2,13 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import Question from "./Question.jsx";
 import Answers from "./Answers.jsx";
 import { UserAnswerContext } from "../store/user-answer-context.jsx"; // 사용자 답안을 저장할 수 있는 컨텍스트
-
-// 퀴즈 화면의 상태를 상수로 정의
-const STAGES = {
-  QUIZ: "quiz", // 문제를 풀고 있는 상태
-  SELECTED: "showSelectedAnswer", // 사용자가 선택한 답안을 보여주는 상태
-  CORRECT: "showCorrectAnswer", // 정답을 보여주는 상태
-};
+import { STAGES } from "../constants/stages.js"; // 퀴즈 상태를 정의한 상수
 
 // 퀴즈 전체 흐름을 관리하는 Quiz 컴포넌트
 function Quiz({ quizzes, onQuizEnd }) {

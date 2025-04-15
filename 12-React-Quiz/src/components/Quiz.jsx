@@ -11,24 +11,15 @@ const STAGES = {
 };
 
 // 퀴즈 전체 흐름을 관리하는 Quiz 컴포넌트
-function Quiz({ quizs, onQuizEnd }) {
-  // 현재 퀴즈 문제의 인덱스 (0번부터 시작)
-  const [currentQuizIndex, setCurrentQuizIndex] = useState(0);
+function Quiz({ quizzes, onQuizEnd }) {
+  const [currentQuizIndex, setCurrentQuizIndex] = useState(0); // 현재 퀴즈 문제의 인덱스 (0번부터 시작)
+  const [quizStage, setQuizStage] = useState(STAGES.QUIZ); // 현재 화면이 어떤 상태인지 관리 QUIZ(quiz), SELECTED(showSelectedAnswer), CORRECT(showCorrectAnswer)
+  const [selectedAnswer, setSelectedAnswer] = useState(""); // 사용자가 선택한 답 (정답 여부 확인용)
 
-  // 현재 화면이 어떤 상태인지 관리 QUIZ(quiz), SELECTED(showSelectedAnswer), CORRECT(showCorrectAnswer)
-  const [quizStage, setQuizStage] = useState(STAGES.QUIZ);
+  const { addUserAnswer } = useContext(UserAnswerContext); // 사용자 답안을 저장하는 컨텍스트에서 함수 불러오기
 
-  // 사용자가 선택한 답 (정답 여부 확인용)
-  const [selectedAnswer, setSelectedAnswer] = useState("");
-
-  // 사용자 답안을 저장하는 컨텍스트에서 함수 불러오기
-  const { addUserAnswer } = useContext(UserAnswerContext);
-
-  // 현재 보여줄 퀴즈 문제 정보
-  const quiz = quizs[currentQuizIndex];
-
-  // 각 상태에 따라 자동으로 전환되는 시간 (ms 단위)
-  const time = (quizStage === STAGES.QUIZ ? 10 : 0.5) * 1000;
+  const quiz = quizzes[currentQuizIndex]; // 현재 보여줄 퀴즈 문제 정보
+  const time = (quizStage === STAGES.QUIZ ? 10 : 0.5) * 1000; // 각 상태에 따라 자동으로 전환되는 시간 (ms 단위)
 
   // 상태(quizStage)가 바뀔 때마다 타이머 실행
   useEffect(() => {
@@ -49,7 +40,7 @@ function Quiz({ quizs, onQuizEnd }) {
   // 다음 문제로 넘어가는 함수
   function handleNextQuestion() {
     // 마지막 문제였다면 퀴즈 종료 처리
-    if (currentQuizIndex >= quizs.length - 1) {
+    if (currentQuizIndex >= quizzes.length - 1) {
       onQuizEnd("summary"); // 퀴즈 요약 화면으로 전환
       return;
     }

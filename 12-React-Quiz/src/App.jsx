@@ -12,7 +12,7 @@ function App() {
   const [viewMode, setViewMode] = useState("quiz");
 
   // QUIZS에서 문제를 가져와서 순서를 섞고, 각 문제에 대한 답변 순서도 섞음
-  const shuffledQuizs = _.shuffle(QUIZS).map((quiz) => ({
+  const shuffledQuizzes = _.shuffle(QUIZS).map((quiz) => ({
     ...quiz,
     answers: _.shuffle(quiz.answers), // 답안 순서 셔플
     correctAnswer: quiz.answers[0], // 첫 번째 답안을 정답으로 설정
@@ -31,7 +31,7 @@ function App() {
       <UserAnswerContextProvider>
         {/* viewMode 상태에 따라 퀴즈 화면 또는 결과 화면을 렌더링 */}
         {viewMode === "quiz" && (
-          <Quiz quizs={shuffledQuizs} onQuizEnd={handleViewModeChange} /> // 퀴즈 화면
+          <Quiz quizzes={shuffledQuizzes} onQuizEnd={handleViewModeChange} /> // 퀴즈 화면
         )}
         {
           viewMode === "summary" && <Summary /> // 결과 화면

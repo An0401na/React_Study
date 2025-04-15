@@ -20,9 +20,10 @@ function Summary(props) {
   ).length;
 
   // 각각의 비율을 백분율로 계산
-  const correctPercentage = Math.round((correctAnswers / totalQuestions) * 100);
-  const wrongPercentage = Math.round((wrongAnswers / totalQuestions) * 100);
-  const skippedPercentage = Math.round((skippedAnswers / totalQuestions) * 100);
+  const getPercentage = (count) => Math.round((count / totalQuestions) * 100);
+  const correctPercentage = getPercentage(correctAnswers);
+  const wrongPercentage = getPercentage(wrongAnswers);
+  const skippedPercentage = getPercentage(skippedAnswers);
 
   return (
     <section id="summary">

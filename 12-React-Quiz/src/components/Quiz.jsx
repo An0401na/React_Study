@@ -6,6 +6,7 @@ import { STAGES } from "../constants/stages.js"; // 퀴즈 상태를 정의한 �
 
 // 퀴즈 전체 흐름을 관리하는 Quiz 컴포넌트
 function Quiz({ quizzes, onQuizEnd }) {
+  // 상태 관리
   const [currentQuizIndex, setCurrentQuizIndex] = useState(0); // 현재 퀴즈 문제의 인덱스 (0번부터 시작)
   const [quizStage, setQuizStage] = useState(STAGES.QUIZ); // 현재 화면이 어떤 상태인지 관리 QUIZ(quiz), SELECTED(showSelectedAnswer), CORRECT(showCorrectAnswer)
   const [selectedAnswer, setSelectedAnswer] = useState(""); // 사용자가 선택한 답 (정답 여부 확인용)
@@ -13,7 +14,7 @@ function Quiz({ quizzes, onQuizEnd }) {
   const { addUserAnswer } = useContext(UserAnswerContext); // 사용자 답안을 저장하는 컨텍스트에서 함수 불러오기
   const quiz = quizzes[currentQuizIndex]; // 현재 보여줄 퀴즈 문제 정보
 
-  // 사용자가 답안을 선택했을 때 호출되는 함수
+  // 사용자 답안 선택
   function handleAnswerSelect(answer) {
     setSelectedAnswer(answer); // 선택한 답 저장
     setQuizStage(STAGES.SELECTED); // 선택한 답을 잠깐 보여주는 상태로 전환
@@ -27,7 +28,7 @@ function Quiz({ quizzes, onQuizEnd }) {
     });
   }
 
-  // 사용자가 "Skip" 버튼을 눌렀을 때
+  // 문제 건너뛰기
   function handleSkipClick() {
     // 바로 정답 보기 상태로 전환
     setQuizStage(STAGES.CORRECT);
@@ -41,7 +42,7 @@ function Quiz({ quizzes, onQuizEnd }) {
     });
   }
 
-  // 다음 문제로 넘어가는 함수
+  // 다음 문제로 이동
   function handleNextQuestion() {
     // 마지막 문제였다면 퀴즈 종료 처리
     if (currentQuizIndex >= quizzes.length - 1) {
@@ -55,7 +56,7 @@ function Quiz({ quizzes, onQuizEnd }) {
     setQuizStage(STAGES.QUIZ); // 상태 초기화 (새 문제 시작)
   }
 
-  // 타이머 만료 시 호출되는 함수
+  // 타이머 종료시 상태 전한 처리
   function handleTimeOut() {
     if (quizStage === STAGES.QUIZ) {
       // 퀴즈 단계에서 타임아웃이 됐다면 스킵 처리

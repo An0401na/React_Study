@@ -1,11 +1,23 @@
 import React, { useEffect, useState } from "react";
 
 // 퀴즈 제한 시간에 따라 남은 시간을 보여주는 진행 바 컴포넌트
-function ProgressBar({ time, isAnswered }) {
+function ProgressBar({ time, isAnswered, onTimeOut }) {
   // 남은 시간(ms 단위)를 상태로 관리
   const [remainingTimer, setRemainingTimer] = useState(time);
 
+  // 타이머 설정
   useEffect(() => {
+    console.log("Setting timer");
+    const timer = setTimeout(() => {
+      onTimeOut();
+    }, time);
+    // 컴포넌트가 언마운트되거나 quizStage가 바뀌기 전에 타이머 제거
+    return () => clearTimeout(timer);
+  }, [time, onTimeOut]);
+
+  // 인터벌 설정: 남은 시간을 10ms 단위로 줄여줌
+  useEffect(() => {
+    console.log("Setting interval");
     // 새 문제 또는 상태가 변경되면 타이머를 초기화
     setRemainingTimer(time);
 

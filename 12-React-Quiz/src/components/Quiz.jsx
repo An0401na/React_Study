@@ -15,22 +15,6 @@ function Quiz({ quizzes, onQuizEnd }) {
   const quiz = quizzes[currentQuizIndex]; // 현재 보여줄 퀴즈 문제 정보
   const time = (quizStage === STAGES.QUIZ ? 10 : 0.5) * 1000; // 각 상태에 따라 자동으로 전환되는 시간 (ms 단위)
 
-  // 상태(quizStage)가 바뀔 때마다 타이머 실행
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      // 아직 정답 보기 단계가 아니면 정답 보기로 전환
-      if (quizStage !== STAGES.CORRECT) {
-        setQuizStage(STAGES.CORRECT);
-      } else {
-        // 이미 정답을 보고 있다면 다음 문제로 넘어감
-        handleNextQuestion();
-      }
-    }, time);
-
-    // 컴포넌트가 언마운트되거나 quizStage가 바뀌기 전에 타이머 제거
-    return () => clearTimeout(timer);
-  }, [currentQuizIndex, quizStage]);
-
   // 다음 문제로 넘어가는 함수
   function handleNextQuestion() {
     // 마지막 문제였다면 퀴즈 종료 처리
@@ -73,6 +57,20 @@ function Quiz({ quizzes, onQuizEnd }) {
     });
   }
 
+  // 타이머 만료 시 호출되는 함수
+  function handleTimeOut() {
+    if (quizStage === STAGES.QUIZ) {
+      // 퀴즈 단계에서 타임아웃이 됐다면 스킵 처리
+      handleSkipClick();
+    } else if (quizStage === STAGES.SELECTED) {
+      // 선택지 확인 단계에서 타임아웃이 됐다면 정답 보기 상태로 전환
+      setQuizStage(STAGES.CORRECT);
+    } else {
+      // 이미 정답을 보고 있다면 다음 문제로 넘어감
+      handleNextQuestion();
+    }
+  }
+
   return (
     <section id="quiz">
       {/* 질문 표시 컴포넌트 */}
@@ -81,6 +79,7 @@ function Quiz({ quizzes, onQuizEnd }) {
         question={quiz.text} // 문제 질문
         time={time} // 타이머 시간
         isAnswered={quizStage !== STAGES.QUIZ} // 문제를 풀었는지 여부 (타이머 표시 조건 등으로 사용 가능)
+        onTimeOut={handleTimeOut} // 타이머 만료 시 호출되는 핸들러
       />
 
       {/* 답안 선택 컴포넌트 */}

@@ -1,9 +1,9 @@
 import ProgressBar from "./ProgressBar.jsx";
 
-function Question({ question, time, isAnswered, onTimeOut }) {
+function Question({ question, quizStage, onTimeOut }) {
   return (
     <section id="question">
-      <ProgressBar time={time} isAnswered={isAnswered} onTimeOut={onTimeOut} />
+      <ProgressBar quizStage={quizStage} onTimeOut={onTimeOut} />
       <h2>{question}</h2>
     </section>
   );

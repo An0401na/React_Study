@@ -11,9 +11,7 @@ function Quiz({ quizzes, onQuizEnd }) {
   const [selectedAnswer, setSelectedAnswer] = useState(""); // 사용자가 선택한 답 (정답 여부 확인용)
 
   const { addUserAnswer } = useContext(UserAnswerContext); // 사용자 답안을 저장하는 컨텍스트에서 함수 불러오기
-
   const quiz = quizzes[currentQuizIndex]; // 현재 보여줄 퀴즈 문제 정보
-  const time = (quizStage === STAGES.QUIZ ? 10 : 0.5) * 1000; // 각 상태에 따라 자동으로 전환되는 시간 (ms 단위)
 
   // 사용자가 답안을 선택했을 때 호출되는 함수
   function handleAnswerSelect(answer) {
@@ -77,8 +75,7 @@ function Quiz({ quizzes, onQuizEnd }) {
       <Question
         key={`${currentQuizIndex}-${quizStage}`} // 상태 변경 시 리렌더링을 위한 고유 key
         question={quiz.text} // 문제 질문
-        time={time} // 타이머 시간
-        isAnswered={quizStage !== STAGES.QUIZ} // 문제를 풀었는지 여부 (타이머 표시 조건 등으로 사용 가능)
+        quizStage={quizStage} // 현재 퀴즈 상태
         onTimeOut={handleTimeOut} // 타이머 만료 시 호출되는 핸들러
       />
 

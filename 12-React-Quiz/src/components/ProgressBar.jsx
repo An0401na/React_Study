@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { STAGES } from "../constants/stages.js";
 
 // 퀴즈 제한 시간에 따라 남은 시간을 보여주는 진행 바 컴포넌트
-function ProgressBar({ time, isAnswered, onTimeOut }) {
+function ProgressBar({ quizStage, onTimeOut }) {
+  const time = (quizStage === STAGES.QUIZ ? 3 : 0.5) * 1000; // 각 상태에 따라 자동으로 전환되는 시간 (ms 단위)
   // 남은 시간(ms 단위)를 상태로 관리
   const [remainingTimer, setRemainingTimer] = useState(time);
 
@@ -33,7 +35,7 @@ function ProgressBar({ time, isAnswered, onTimeOut }) {
 
   return (
     <progress
-      className={isAnswered ? "answered" : ""} // 정답 선택 상태에 따라 조건부 클래스 적용
+      className={quizStage !== STAGES.QUIZ ? "answered" : ""} // 정답 선택 상태에 따라 조건부 클래스 적용
       value={remainingTimer} // 현재 남은 시간
       max={time} // 최대 시간
     />

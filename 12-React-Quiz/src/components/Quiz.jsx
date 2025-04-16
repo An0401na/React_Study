@@ -15,18 +15,18 @@ function Quiz({ quizzes, onQuizEnd }) {
   const quiz = quizzes[currentQuizIndex]; // 현재 보여줄 퀴즈 문제 정보
   const time = (quizStage === STAGES.QUIZ ? 10 : 0.5) * 1000; // 각 상태에 따라 자동으로 전환되는 시간 (ms 단위)
 
-  // 다음 문제로 넘어가는 함수
-  function handleNextQuestion() {
-    // 마지막 문제였다면 퀴즈 종료 처리
-    if (currentQuizIndex >= quizzes.length - 1) {
-      onQuizEnd("summary"); // 퀴즈 요약 화면으로 전환
-      return;
-    }
+  // 사용자가 답안을 선택했을 때 호출되는 함수
+  function handleAnswerSelect(answer) {
+    setSelectedAnswer(answer); // 선택한 답 저장
+    setQuizStage(STAGES.SELECTED); // 선택한 답을 잠깐 보여주는 상태로 전환
 
-    // 상태 초기화 후 다음 문제로 진행
-    setSelectedAnswer(""); // 이전 선택 제거
-    setCurrentQuizIndex((prevIndex) => prevIndex + 1); // 다음 문제 인덱스로 이동
-    setQuizStage(STAGES.QUIZ); // 상태 초기화 (새 문제 시작)
+    // 사용자 답안 저장 (정답 여부 포함)
+    addUserAnswer({
+      id: quiz.id,
+      question: quiz.text,
+      selectedAnswer: answer,
+      result: answer === quiz.correctAnswer ? "correct" : "wrong",
+    });
   }
 
   // 사용자가 "Skip" 버튼을 눌렀을 때
@@ -43,18 +43,18 @@ function Quiz({ quizzes, onQuizEnd }) {
     });
   }
 
-  // 사용자가 답안을 선택했을 때 호출되는 함수
-  function handleAnswerSelect(answer) {
-    setSelectedAnswer(answer); // 선택한 답 저장
-    setQuizStage(STAGES.SELECTED); // 선택한 답을 잠깐 보여주는 상태로 전환
+  // 다음 문제로 넘어가는 함수
+  function handleNextQuestion() {
+    // 마지막 문제였다면 퀴즈 종료 처리
+    if (currentQuizIndex >= quizzes.length - 1) {
+      onQuizEnd("summary"); // 퀴즈 요약 화면으로 전환
+      return;
+    }
 
-    // 사용자 답안 저장 (정답 여부 포함)
-    addUserAnswer({
-      id: quiz.id,
-      question: quiz.text,
-      selectedAnswer: answer,
-      result: answer === quiz.correctAnswer ? "correct" : "wrong",
-    });
+    // 상태 초기화 후 다음 문제로 진행
+    setSelectedAnswer(""); // 이전 선택 제거
+    setCurrentQuizIndex((prevIndex) => prevIndex + 1); // 다음 문제 인덱스로 이동
+    setQuizStage(STAGES.QUIZ); // 상태 초기화 (새 문제 시작)
   }
 
   // 타이머 만료 시 호출되는 함수

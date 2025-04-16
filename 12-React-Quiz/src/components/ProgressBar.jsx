@@ -13,7 +13,7 @@ function ProgressBar({ time, isAnswered, onTimeOut }) {
     }, time);
     // 컴포넌트가 언마운트되거나 quizStage가 바뀌기 전에 타이머 제거
     return () => clearTimeout(timer);
-  }, [time, onTimeOut]);
+  }, [time]);
 
   // 인터벌 설정: 남은 시간을 10ms 단위로 줄여줌
   useEffect(() => {

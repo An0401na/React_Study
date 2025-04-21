@@ -2,6 +2,7 @@ import Places from "./Places.jsx";
 import { useEffect, useState } from "react";
 import ErrorPage from "./Error.jsx";
 import { sortPlacesByDistance } from "../loc.js";
+import { fetchAvailablePlaces } from "../http.js";
 
 export default function AvailablePlaces({ onSelectPlace }) {
   const [availablePlaces, setAvailablePlaces] = useState([]);
@@ -17,16 +18,7 @@ export default function AvailablePlaces({ onSelectPlace }) {
 
       try {
         // Fetch 요청
-        const response = await fetch("http://localhost:3000/places");
-        console.log("📥 [fetch] 요청 성공");
-
-        // JSON 파싱
-        const resData = await response.json();
-        console.log("📦 [JSON 파싱 완료]", resData);
-
-        if (!response.ok) {
-          throw new Error("Failed to fetch places.");
-        }
+        const places = await fetchAvailablePlaces(); // HTTP 요청을 보내는 실제 코드
 
         // 위치 정보 요청
         console.log("📍 [위치 요청] 사용자 위치 가져오는 중...");

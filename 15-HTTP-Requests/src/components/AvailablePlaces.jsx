@@ -26,7 +26,7 @@ export default function AvailablePlaces({ onSelectPlace }) {
           console.log("✅ [위치 정보] 수신 완료:", position.coords);
 
           const sortedPlaces = sortPlacesByDistance(
-            resData.places,
+            places,
             position.coords.latitude,
             position.coords.longitude,
           );

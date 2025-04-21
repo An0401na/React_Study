@@ -1,5 +1,6 @@
 import Places from "./Places.jsx";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
+import Error from "./Error.jsx";
 
 export default function AvailablePlaces({ onSelectPlace }) {
   const [availablePlaces, setAvailablePlaces] = useState([]);
@@ -20,7 +21,10 @@ export default function AvailablePlaces({ onSelectPlace }) {
 
         setAvailablePlaces(resData.places);
       } catch (error) {
-        setError(error);
+        setError({
+          message:
+            error.message || "Could not fetch places, please try again later.",
+        });
       }
 
       setIsFetching(false);
@@ -29,7 +33,7 @@ export default function AvailablePlaces({ onSelectPlace }) {
   }, []);
 
   if (error) {
-    return;
+    return <Error title="An error occurred!" message={error.message} />;
   }
 
   return (

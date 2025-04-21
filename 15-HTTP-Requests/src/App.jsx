@@ -34,7 +34,11 @@ function App() {
       return [selectedPlace, ...prevPickedPlaces];
     });
 
-    await updateUserPlaces([selectedPlace, ...userPlaces]);
+    try {
+      await updateUserPlaces([selectedPlace, ...userPlaces]);
+    } catch (error) {
+      console.error("Error updating user places:", error);
+    }
   }
 
   const handleRemovePlace = useCallback(async function handleRemovePlace() {

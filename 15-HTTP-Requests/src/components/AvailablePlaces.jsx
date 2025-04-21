@@ -43,10 +43,6 @@ export default function AvailablePlaces({ onSelectPlace }) {
           setAvailablePlaces(sortedPlaces);
           console.log("📌 [setAvailablePlaces] 정렬된 데이터 적용");
         });
-
-        // 위치 요청 이전, 임시 데이터 렌더링용
-        console.log("📝 [기본 데이터] 정렬 전 데이터 적용");
-        setAvailablePlaces(resData.places);
       } catch (error) {
         console.log("❌ [에러 발생]", error.message);
         setError({

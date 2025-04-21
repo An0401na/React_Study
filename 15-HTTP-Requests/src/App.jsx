@@ -38,6 +38,7 @@ function App() {
       await updateUserPlaces([selectedPlace, ...userPlaces]);
     } catch (error) {
       console.error("Error updating user places:", error);
+      setUserPlaces(userPlaces); // 백엔드 단에서 에러가 발생했을 때, 원래의 userPlaces로 되돌리기
     }
   }
 

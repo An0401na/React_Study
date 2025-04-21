@@ -24,6 +24,8 @@ function App() {
   }
 
   async function handleSelectPlace(selectedPlace) {
+    // await updateUserPlaces([selectedPlace, selectedPlace]); //비관적 업데이트 (사용안함)
+
     setUserPlaces((prevPickedPlaces) => {
       if (!prevPickedPlaces) {
         prevPickedPlaces = [];

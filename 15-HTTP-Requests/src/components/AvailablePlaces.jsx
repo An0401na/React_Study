@@ -42,16 +42,19 @@ export default function AvailablePlaces({ onSelectPlace }) {
           console.log("🗂️ [정렬 완료] 거리순 장소 목록:", sortedPlaces);
           setAvailablePlaces(sortedPlaces);
           console.log("📌 [setAvailablePlaces] 정렬된 데이터 적용");
+
+          setIsFetching(false);
+          console.log("✅ [isFetching] false 설정됨");
         });
       } catch (error) {
         console.log("❌ [에러 발생]", error.message);
         setError({
           message: error.message || "Could not fetch places.",
         });
-      }
 
-      setIsFetching(false);
-      console.log("✅ [isFetching] false 설정됨");
+        setIsFetching(false);
+        console.log("✅ [isFetching] false 설정됨");
+      }
       console.log("=== 📡 [fetchPlaces] 종료 ===");
     }
 

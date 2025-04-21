@@ -1,5 +1,5 @@
 import Places from "./Places.jsx";
-import { memo, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import ErrorPage from "./Error.jsx";
 import { sortPlacesByDistance } from "../loc.js";
 
@@ -7,26 +7,31 @@ export default function AvailablePlaces({ onSelectPlace }) {
   const [availablePlaces, setAvailablePlaces] = useState([]);
   const [isFetching, setIsFetching] = useState(false);
   const [error, setError] = useState();
+
   useEffect(() => {
     async function fetchPlaces() {
-      console.log("📡 fetchPlaces 시작");
+      console.log("=== 📡 [fetchPlaces] 시작 ===");
+
       setIsFetching(true);
-      console.log("🔄 isFetching: true");
+      console.log("🔄 [isFetching] true 설정됨");
 
       try {
+        // Fetch 요청
         const response = await fetch("http://localhost:3000/places");
-        console.log("📥 fetch 완료");
+        console.log("📥 [fetch] 요청 성공");
 
+        // JSON 파싱
         const resData = await response.json();
-        console.log("📦 JSON 파싱 완료", resData);
+        console.log("📦 [JSON 파싱 완료]", resData);
 
         if (!response.ok) {
           throw new Error("Failed to fetch places.");
         }
 
-        console.log("📍 위치 정보 요청");
+        // 위치 정보 요청
+        console.log("📍 [위치 요청] 사용자 위치 가져오는 중...");
         navigator.geolocation.getCurrentPosition((position) => {
-          console.log("✅ 위치 정보 받음", position.coords);
+          console.log("✅ [위치 정보] 수신 완료:", position.coords);
 
           const sortedPlaces = sortPlacesByDistance(
             resData.places,
@@ -34,22 +39,24 @@ export default function AvailablePlaces({ onSelectPlace }) {
             position.coords.longitude,
           );
 
-          console.log("📍 정렬된 장소", sortedPlaces);
+          console.log("🗂️ [정렬 완료] 거리순 장소 목록:", sortedPlaces);
           setAvailablePlaces(sortedPlaces);
-          console.log("📍 setAvailablePlaces 실행됨");
+          console.log("📌 [setAvailablePlaces] 정렬된 데이터 적용");
         });
 
-        console.log("📋 일단 기본 데이터 넣기");
+        // 위치 요청 이전, 임시 데이터 렌더링용
+        console.log("📝 [기본 데이터] 정렬 전 데이터 적용");
         setAvailablePlaces(resData.places);
       } catch (error) {
-        console.log("❌ 에러 발생", error.message);
+        console.log("❌ [에러 발생]", error.message);
         setError({
           message: error.message || "Could not fetch places.",
         });
       }
 
       setIsFetching(false);
-      console.log("✅ isFetching: false");
+      console.log("✅ [isFetching] false 설정됨");
+      console.log("=== 📡 [fetchPlaces] 종료 ===");
     }
 
     fetchPlaces();

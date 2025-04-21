@@ -1,6 +1,6 @@
 import Places from "./Places.jsx";
 import { memo, useEffect, useState } from "react";
-import Error from "./Error.jsx";
+import ErrorPage from "./Error.jsx";
 
 export default function AvailablePlaces({ onSelectPlace }) {
   const [availablePlaces, setAvailablePlaces] = useState([]);
@@ -33,7 +33,7 @@ export default function AvailablePlaces({ onSelectPlace }) {
   }, []);
 
   if (error) {
-    return <Error title="An error occurred!" message={error.message} />;
+    return <ErrorPage title="An error occurred!" message={error.message} />;
   }
 
   return (

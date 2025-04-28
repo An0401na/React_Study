@@ -13,7 +13,7 @@ export default function Login() {
   }
 
   function handleInputChange(identifier, value) {
-    setEnteredValue((prevState) => ({
+    setEnteredValue((prevValues) => ({
       ...prevValues,
       [identifier]: value,
     }));

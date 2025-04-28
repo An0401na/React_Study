@@ -1,4 +1,7 @@
+import { useState } from "react";
+
 export default function Signup() {
+  const [passwordsAreNotEqual, setPasswordsAreNotEqual] = useState(false);
   function handleSubmit(event) {
     event.preventDefault();
 
@@ -6,6 +9,12 @@ export default function Signup() {
     const acquisitionChannel = formData.getAll("acquisition"); //checkbox는 getAll로 가져와야함
     const data = Object.fromEntries(formData.entries()); //formData.entries()는 입력창과 그에 대한 값들을 배열로 반환
     data.acquisition = acquisitionChannel;
+
+    if (data.password !== data["confirm-password"]) {
+      setPasswordsAreNotEqual(true);
+      return;
+    }
+
     console.log(data);
   }
 
@@ -40,6 +49,9 @@ export default function Signup() {
             required
             minLength={6}
           />
+          <div className="control-error">
+            {passwordsAreNotEqual && <p>비밀번호가 일치하지 않습니다.</p>}
+          </div>
         </div>
       </div>
 

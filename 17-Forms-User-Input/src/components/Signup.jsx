@@ -1,6 +1,16 @@
 export default function Signup() {
+  function handleSubmit(event) {
+    event.preventDefault();
+
+    const formData = new FormData(event.target);
+    const acquisitionChannel = formData.getAll("acquisition"); //checkbox는 getAll로 가져와야함
+    const data = Object.fromEntries(formData.entries()); //formData.entries()는 입력창과 그에 대한 값들을 배열로 반환
+    data.acquisition = acquisitionChannel;
+    console.log(data);
+  }
+
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <h2>Welcome on board!</h2>
       <p>We just need a little bit of data from you to get you started 🚀</p>
 

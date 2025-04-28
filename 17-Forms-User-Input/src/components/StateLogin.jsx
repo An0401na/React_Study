@@ -5,8 +5,13 @@ export default function Login() {
     email: "",
     password: "",
   });
-  const emailIsInvalid =
-    enteredValue.email !== "" && !enteredValue.email.includes("@");
+  const [didEdit, setDidEdit] = useState({
+    // 사용자와 상호작용을 통해 포커스를 잃었는지 저장
+    email: false,
+    password: false,
+  });
+
+  const emailIsInvalid = didEdit.email && !enteredValue.email.includes("@");
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -39,6 +44,7 @@ export default function Login() {
             id="email"
             type="email"
             name="email"
+            onBlur={() => handleInputBlur("email")} // 포커스를 잃을 때마다 발현
             onChange={(event) => handleInputChange("email", event.target.value)}
             value={enteredValue.email}
           />

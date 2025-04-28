@@ -31,7 +31,7 @@ export default function Login() {
       <div className="control-row">
         <div className="control no-margin">
           <label htmlFor="email">Email</label>
-          <input id="email" type="email" name="email" ref={emailRef} />
+          <input id="email" type="text" name="email" ref={emailRef} />
           <div className="control-error">
             {emailIsInvalid && <p>유효한 이메일 주소를 입력해 주세요.</p>}{" "}
           </div>

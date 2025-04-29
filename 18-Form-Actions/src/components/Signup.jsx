@@ -1,3 +1,10 @@
+import {
+  hasMinLength,
+  isEmail,
+  isEqualToOtherValue,
+  isNotEmpty,
+} from "../util/validation.js";
+
 export default function Signup() {
   function signupAction(formData) {
     const email = formData.get("email");
@@ -8,7 +15,37 @@ export default function Signup() {
     const role = formData.get("role");
     const terms = formData.get("terms");
     const acquisition = formData.getAll("acquisition");
+
+    let errors = [];
+
+    if (!isEmail(email)) {
+      errors.push("잘못된 이메일 형식입니다.");
+    }
+
+    if (!isNotEmpty(password) && !hasMinLength(password, 6)) {
+      errors.push("비밀번호는 6자 이상이어야 합니다.");
+    }
+    if (!isEqualToOtherValue(password, confirmPassword)) {
+      errors.push("비밀번호가 일치하지 않습니다.");
+    }
+
+    if (!isNotEmpty(firstName) || !isNotEmpty(lastName)) {
+      errors.push("이름과 성을 모두 입력해야 합니다.");
+    }
+
+    if (!isNotEmpty(role)) {
+      errors.push("역할을 선택해야 합니다.");
+    }
+
+    if (!terms) {
+      errors.push("약관에 동의해야 합니다.");
+    }
+
+    if (acquisition.length === 0) {
+      errors.push("하나 이상의 유입 채널을 선택해 주세요.");
+    }
   }
+
   return (
     <form action={signupAction}>
       <h2>Welcome on board!</h2>

@@ -1,7 +1,11 @@
-import { useActionState } from "react";
+import { use, useActionState } from "react";
+import { OpinionsContext } from "../store/opinions-context.jsx";
+import Submit from "./Submit.jsx";
 
 export function NewOpinion() {
-  function shareOpinionAction(prevFormState, formData) {
+  const { addOpinion } = use(OpinionsContext);
+
+  async function shareOpinionAction(prevFormState, formData) {
     const userName = formData.get("userName");
     const title = formData.get("title");
     const body = formData.get("body");
@@ -38,6 +42,10 @@ export function NewOpinion() {
         },
       };
     }
+
+    // 모든 유효성 검증을 통과한 경우
+    await addOpinion({ userName, title, body });
+
     return { errors: null }; // null 이면 모든 유효성 검증 패스
   }
   function isNotEmpty(value) {

@@ -27,7 +27,7 @@ export function Opinion({ opinion: { id, title, body, userName, votes } }) {
       <form className="votes">
         <button
           formAction={upVoteFormAction}
-          disabled={upVotePending || downVoteFormState}
+          disabled={upVotePending || downVotePending}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -50,7 +50,7 @@ export function Opinion({ opinion: { id, title, body, userName, votes } }) {
 
         <button
           formAction={downVoteFormAction}
-          disabled={upVotePending || downVoteFormState}
+          disabled={upVotePending || downVotePending}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

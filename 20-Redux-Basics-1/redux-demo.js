@@ -12,4 +12,8 @@ const counterSubscriber = () => {
   console.log("구독중 : ", latestState);
 };
 
-store.subscribe(counterSubscriber);
+store.subscribe(counterSubscriber); // 구독함수를 등록
+
+store.dispatch({
+  type: "INCREMENT", // 액션 객체를 디스패치
+}); // 액션을 디스패치하여 상태를 변경, 액션을 발송하는 메소드

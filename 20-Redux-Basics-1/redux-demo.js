@@ -1,7 +1,19 @@
 const redux = require("redux");
 
 const counterReducer = (state = { counter: 0 }, action) => {
-  return { counter: state.counter + 1 };
+  if (action.type === "INCREMENT") {
+    return {
+      counter: state.counter + 1,
+    };
+  }
+
+  if (action.type === "DECREMENT") {
+    return {
+      counter: state.counter - 1,
+    };
+  }
+
+  return state;
 };
 
 const store = redux.createStore(counterReducer); // redux 저장소 생성
@@ -17,3 +29,7 @@ store.subscribe(counterSubscriber); // 구독함수를 등록
 store.dispatch({
   type: "INCREMENT", // 액션 객체를 디스패치
 }); // 액션을 디스패치하여 상태를 변경, 액션을 발송하는 메소드
+
+store.dispatch({
+  type: "DECREMENT",
+});

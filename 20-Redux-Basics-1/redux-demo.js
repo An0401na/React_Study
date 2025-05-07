@@ -1,7 +1,7 @@
 const redux = require("redux");
 
 const counterReducer = (state = { counter: 0 }, action) => {
-  return { count: state.count + 1 };
+  return { counter: state.counter + 1 };
 };
 
 const store = redux.createStore(counterReducer); // redux 저장소 생성

@@ -2,11 +2,11 @@ import { createStore } from "redux";
 
 // 리듀스 함수
 const counterReducer = (state = { counter: 0 }, action) => {
-  if (action.type == "INCREMENT") {
+  if (action.type === "INCREMENT") {
     return { counter: state.counter + 1 };
   }
 
-  if (action.type == "DECREMENT") {
+  if (action.type === "DECREMENT") {
     return { counter: state.counter - 1 };
   }
 

@@ -12,5 +12,8 @@
   "type": "commonjs",
   "dependencies": {
     "redux": "^5.0.1"
+  },
+  "devDependencies": {
+    "prettier": "^3.5.3"
   }
 }

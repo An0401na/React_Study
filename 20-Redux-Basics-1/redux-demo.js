@@ -1,5 +1,6 @@
 const redux = require("redux");
 
+const counterReducer = (state = { counter: 0 }, action) => {
   return { count: state.count + 1 };
 };
 

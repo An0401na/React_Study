@@ -1,7 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import classes from "./Counter.module.css";
-
-import { counterActions } from "../store/index.js"; // reducer 메소드 이름들을 키로 가지는 객체
+import { counterActions } from "../store/counter"; // reducer 메소드 이름들을 키로 가지는 객체
 
 const Counter = () => {
   const dispatch = useDispatch();

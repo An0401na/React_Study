@@ -1,6 +1,7 @@
-import { Component } from "react";
-import { useDispatch, useSelector, connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import classes from "./Counter.module.css";
+
+import { counterActions } from "../store/index.js"; // reducer 메소드 이름들을 키로 가지는 객체
 
 const Counter = () => {
   const dispatch = useDispatch();
@@ -8,19 +9,19 @@ const Counter = () => {
   const showCounter = useSelector((state) => state.showCounter);
 
   const incrementHandler = () => {
-    dispatch({ type: "INCREMENT" });
+    dispatch(counterActions.increment());
   };
 
-  const increseHandler = () => {
-    dispatch({ type: "INCREASE", amount: 5 });
+  const increaseHandler = () => {
+    dispatch(counterActions.increase(10)); //{ type: SOME_UNIQUE_IDENTIFIER, payload: 10 }
   };
 
   const decrementHandler = () => {
-    dispatch({ type: "DECREMENT" });
+    dispatch(counterActions.decrement());
   };
 
   const toggleCounterHandler = () => {
-    dispatch({ type: "TOGGLE" });
+    dispatch(counterActions.toggle());
   };
 
   return (
@@ -29,7 +30,7 @@ const Counter = () => {
       {showCounter && <div className={classes.value}>{counter}</div>}
       <div>
         <button onClick={incrementHandler}>INCREMENT</button>
-        <button onClick={increseHandler}>INCREMENT by 5</button>
+        <button onClick={increaseHandler}>INCREMENT by 5</button>
         <button onClick={decrementHandler}>DECREMENT</button>
       </div>
       <button onClick={toggleCounterHandler}>Toggle Counter</button>

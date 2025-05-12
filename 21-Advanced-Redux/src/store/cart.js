@@ -4,11 +4,8 @@ const cartSlice = createSlice({
   name: "cart",
   initialState: { isActivated: false },
   reducers: {
-    activateCart: (state) => {
-      state.isActivated = true;
-    },
-    deactivateCart: (state) => {
-      state.isActivated = false;
+    toggleCart(state) {
+      state.isActivated = !state.isActivated;
     },
   },
 });

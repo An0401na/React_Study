@@ -1,17 +1,17 @@
 import classes from "./CartButton.module.css";
 import { useDispatch } from "react-redux";
-import { cartActions } from "../../store/cart";
+import { cartToggleActions } from "../../store/cart-toggle";
 
 const CartButton = (props) => {
   const dispatch = useDispatch();
 
-  const myCartButtonHandler = (event) => {
+  const toggleCartHandler = (event) => {
     event.preventDefault();
-    dispatch(cartActions.toggleCart());
+    dispatch(cartToggleActions.toggleCart());
   };
 
   return (
-    <button className={classes.button} onClick={myCartButtonHandler}>
+    <button className={classes.button} onClick={toggleCartHandler}>
       <span>My Cart</span>
       <span className={classes.badge}>1</span>
     </button>

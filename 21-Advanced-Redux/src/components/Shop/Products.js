@@ -1,36 +1,18 @@
-import ProductItem from "./ProductItem";
-import classes from "./Products.module.css";
+import ProductItem from './ProductItem';
+import classes from './Products.module.css';
 
 const DUMMY_PRODUCTS = [
   {
-    id: 1,
-    price: 199.99,
-    title: "Wireless Headphones",
-    description: "High-quality wireless headphones with noise cancellation.",
+    id: 'p1',
+    price: 6,
+    title: 'My First Book',
+    description: 'The first book I ever wrote',
   },
   {
-    id: 2,
-    price: 49.99,
-    title: "Bluetooth Speaker",
-    description: "Portable speaker with deep bass and 10-hour battery life.",
-  },
-  {
-    id: 3,
-    price: 29.99,
-    title: "USB-C Hub",
-    description: "Multi-port USB-C hub with HDMI and USB 3.0 support.",
-  },
-  {
-    id: 4,
-    price: 9.99,
-    title: "Phone Stand",
-    description: "Adjustable phone stand with non-slip base.",
-  },
-  {
-    id: 5,
-    price: 99.99,
-    title: "Smartwatch",
-    description: "Feature-rich smartwatch with heart rate monitoring.",
+    id: 'p2',
+    price: 5,
+    title: 'My Second Book',
+    description: 'The second book I ever wrote',
   },
 ];
 

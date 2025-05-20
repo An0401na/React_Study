@@ -32,15 +32,7 @@
     }
   ],
   "cart": {
-    "items": [
-      {
-        "id": "p1",
-        "price": 6,
-        "quantity": 2,
-        "totalPrice": 12,
-        "name": "My First Book"
-      }
-    ],
-    "totalQuantity": 2
+    "items": [],
+    "totalQuantity": 0
   }
 }

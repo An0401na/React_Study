@@ -10,10 +10,18 @@ function App() {
   const cart = useSelector((state) => state.cart);
 
   useEffect(() => {
-    fetch("http://localhost:4000/cart", {
-      method: "PUT",
-      body: JSON.stringify(cart),
-    });
+    const sendCartData = async () => {
+      const response = await fetch("http://localhost:4000/cart", {
+        method: "PUT",
+        body: JSON.stringify(cart),
+      });
+
+      if (!response.ok) {
+        throw new Error("Sending cart data failed.");
+      }
+
+      const responseData = await response.json();
+    };
   }, [cart]);
 
   return (

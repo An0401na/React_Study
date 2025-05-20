@@ -4,12 +4,21 @@ import Cart from "./components/Cart/Cart";
 import Layout from "./components/Layout/Layout";
 import Products from "./components/Shop/Products";
 import { useEffect } from "react";
+import { uiAction } from "./store/ui-slice";
 
 function App() {
+  const dispatch = useDispatch();
   const showCart = useSelector((state) => state.ui.cartIsVisible);
   const cart = useSelector((state) => state.cart);
 
   useEffect(() => {
+    dispatch(
+      uiAction.showNotification({
+        status: "pending",
+        title: "Sending...",
+        message: "Sending cart data!",
+      }),
+    );
     const sendCartData = async () => {
       const response = await fetch("http://localhost:4000/cart", {
         method: "PUT",
@@ -20,9 +29,25 @@ function App() {
         throw new Error("Sending cart data failed.");
       }
 
-      const responseData = await response.json();
+      dispatch(
+        uiAction.showNotification({
+          status: "success",
+          title: "Success!",
+          message: "Sending cart data successfully!",
+        }),
+      );
     };
-  }, [cart]);
+
+    sendCartData().catch((error) => {
+      dispatch(
+        uiAction.showNotification({
+          status: "error",
+          title: "Error!",
+          message: "Sending cart data failed.",
+        }),
+      );
+    });
+  }, [cart, dispatch]);
 
   return (
     <Layout>
